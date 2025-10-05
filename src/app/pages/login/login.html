@@ -1,0 +1,58 @@
+<main class="h-screen w-screen p-3 flex overflow-hidden">
+  <div
+    class="w-1/2 flex flex-col justify-between items-center h-full bg-[#c8d8f9] rounded-2xl px-10 pt-10"
+  >
+    <div class="text-center flex flex-col gap-2">
+      <h1 class="text-4xl text-[#407BFF] font-semibold">Leave Management</h1>
+      <p class="text-lg">
+        Empowering teams with a seamless data-driven way to request, track and manage time off
+      </p>
+    </div>
+
+    <div class="h-4/6 w-[90%]">
+      <img src="/images/auth-bg.png" alt="calendar" class="h-full w-full" />
+    </div>
+  </div>
+  <div class="w-1/2 justify-center items-center flex flex-col">
+    <form class="w-3/4 flex flex-col gap-5">
+      <h2 class="text-center text-3xl text-[#407BFF] mb-4 font-semibold">Login</h2>
+
+      <div>
+        <p-floatlabel variant="on">
+          <p-iconfield>
+            <p-inputicon class="pi pi-envelope" />
+            <input
+              pInputText
+              autocomplete="off"
+              pSize="large"
+              id="email"
+              inputId="password"
+              class="!bg-white !text-[#333] focus:!border-black"
+              fluid
+            />
+          </p-iconfield>
+          <label for="email" class="!bg-white !text-[#ccc]">Email</label>
+        </p-floatlabel>
+      </div>
+
+      <div>
+        <p-floatlabel variant="on">
+          <p-iconfield>
+            <p-inputicon class="pi pi-lock" />
+            <p-password
+              [toggleMask]="true"
+              [feedback]="false"
+              size="large"
+              inputId="password"
+              inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
+              fluid
+            />
+          </p-iconfield>
+          <label for="password" class="!text-[#ccc] !bg-white">Password</label>
+        </p-floatlabel>
+      </div>
+
+      <p-button label="Login" styleClass="!bg-[#407BFF] !mt-6 !border-[#888]" size="large" fluid />
+    </form>
+  </div>
+</main>
