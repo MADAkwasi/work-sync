@@ -2,13 +2,17 @@
   class="py-2 rounded-xl font-medium px-4 cursor-pointer disabled:cursor-not-allowed"
   [class]="fullWidth() ? 'w-full' : 'w-auto'"
   [ngClass]="{
-    'bg-[#407BFF] border-[#888] active:bg-[#305ec3] text-white
+    'bg-[#407BFF] border-[#888] text-white
+     hover:bg-[#3060d1] active:bg-[#305ec3]
      disabled:bg-[#a3bffa] disabled:border-[#ccc] disabled:text-white': variant() === 'primary',
 
-    'bg-transparent border-[#407BFF] border-2 active:bg-[#ddd] text-[#407BFF]
+    'bg-transparent border-[#407BFF] border-2 text-[#407BFF]
+     hover:bg-[#f0f4ff] hover:border-[#305ec3] hover:text-[#305ec3]
+     active:bg-[#ddd]
      disabled:border-[#ccc] disabled:text-[#aaa] disabled:bg-[#f5f5f5]': variant() === 'secondary',
 
-    'bg-transparent border-none active:text-[#305ec3] text-[#407BFF]
+    'bg-transparent border-none text-[#407BFF]
+     hover:text-[#3060d1] active:text-[#305ec3]
      disabled:text-[#aaa]': variant() === 'tertiary'
   }"
   [disabled]="disabled()"
