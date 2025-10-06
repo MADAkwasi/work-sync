@@ -1,7 +1,14 @@
 <app-header />
 <main class="bg-white px-6 py-8 flex flex-col items-center h-[calc(100vh-77px)] overflow-auto">
-  <form class="w-3/5 flex flex-col gap-8">
-    <div class="text-left">
+  <form class="w-3/5 flex flex-col gap-8" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+    <div class="text-left flex flex-col">
+      <button
+        class="text-sm gap-3 my-2 cursor-pointer self-start flex items-center"
+        (click)="handleNavigateBack()"
+      >
+        <i class="pi pi-arrow-left"></i>
+        <p>Go Back</p>
+      </button>
       <h1 class="font-bold text-3xl">Request Time Off</h1>
       <p class="font-light">Complete the form below to request time off</p>
     </div>
@@ -14,6 +21,7 @@
               showIcon
               iconDisplay="input"
               inputStyleClass="!bg-white !text-[#333] focus:!border-black"
+              formControlName="startDate"
               fluid
             />
             <label class="!bg-white !text-[#aaa]">Start Date</label>
@@ -26,6 +34,7 @@
               showIcon
               iconDisplay="input"
               inputStyleClass="!bg-white !text-[#333] focus:!border-black"
+              formControlName="endDate"
               fluid
             />
             <label class="!bg-white !text-[#aaa]">End Date</label>
@@ -40,7 +49,7 @@
         <input
           pInputText
           aria-describedby="username-help"
-          [disabled]="true"
+          formControlName="duration"
           class="disabled:!bg-gray-200 disabled:!cursor-not-allowed"
         />
         <small id="username-help">Caculated automatically</small>
@@ -55,6 +64,7 @@
           cols="30"
           style="resize: none"
           class="!bg-white !text-[#333] focus:!border-black"
+          formControlName="reason"
           fluid
         ></textarea>
         <label class="!bg-white !text-[#aaa]">Reason/Notes</label>
@@ -62,8 +72,10 @@
     </div>
 
     <div class="justify-end flex gap-3">
-      <app-button variant="secondary">Cancel</app-button>
-      <app-button>Submit Request</app-button>
+      <app-button variant="secondary" [disabled]="requestForm.untouched" (onClick)="onCancel()"
+        >Cancel</app-button
+      >
+      <app-button type="submit" [disabled]="requestForm.invalid">Submit Request</app-button>
     </div>
   </form>
 </main>
