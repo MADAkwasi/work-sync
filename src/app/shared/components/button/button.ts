@@ -10,4 +10,5 @@ export class Button {
   public readonly type = input<'button' | 'submit'>('button');
   public readonly variant = input<'primary' | 'secondary' | 'tertiary'>('primary');
   public readonly disabled = input(false);
+  public readonly fullWidth = input(false);
 }

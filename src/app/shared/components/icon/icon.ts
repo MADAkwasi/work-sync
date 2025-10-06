@@ -8,4 +8,5 @@ import { Button } from '../button/button';
 })
 export class Icon {
   public readonly icon = input('');
+  public readonly size = input('1.7');
 }

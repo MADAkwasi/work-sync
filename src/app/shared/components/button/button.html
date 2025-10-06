@@ -1,5 +1,6 @@
 <button
-  class="mt-6 py-3 rounded-lg font-medium w-full px-2 border cursor-pointer disabled:cursor-not-allowed"
+  class="py-2 rounded-xl font-medium px-4 cursor-pointer disabled:cursor-not-allowed"
+  [class]="fullWidth() ? 'w-full' : 'w-auto'"
   [ngClass]="{
     'bg-[#407BFF] border-[#888] active:bg-[#305ec3] text-white
      disabled:bg-[#a3bffa] disabled:border-[#ccc] disabled:text-white': variant() === 'primary',
