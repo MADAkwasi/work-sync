@@ -1,0 +1,81 @@
+<app-header />
+<main class="bg-white px-6 py-8 flex flex-col items-center h-[calc(100vh-77px)] overflow-auto">
+  <form class="w-3/5 flex flex-col gap-8" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+    <div class="text-left flex flex-col">
+      <button
+        class="text-sm gap-3 my-2 cursor-pointer self-start flex items-center"
+        (click)="handleNavigateBack()"
+      >
+        <i class="pi pi-arrow-left"></i>
+        <p>Go Back</p>
+      </button>
+      <h1 class="font-bold text-3xl">Request Time Off</h1>
+      <p class="font-light">Complete the form below to request time off</p>
+    </div>
+
+    <div>
+      <div class="flex justify-between items-center gap-4">
+        <div class="w-1/2">
+          <p-floatlabel variant="on">
+            <p-datepicker
+              showIcon
+              iconDisplay="input"
+              inputStyleClass="!bg-white !text-[#333] focus:!border-black"
+              formControlName="startDate"
+              fluid
+            />
+            <label class="!bg-white !text-[#aaa]">Start Date</label>
+          </p-floatlabel>
+        </div>
+
+        <div class="w-1/2">
+          <p-floatlabel variant="on">
+            <p-datepicker
+              showIcon
+              iconDisplay="input"
+              inputStyleClass="!bg-white !text-[#333] focus:!border-black"
+              formControlName="endDate"
+              fluid
+            />
+            <label class="!bg-white !text-[#aaa]">End Date</label>
+          </p-floatlabel>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex flex-col gap-2">
+        <label>Duration of leave</label>
+        <input
+          pInputText
+          aria-describedby="username-help"
+          formControlName="duration"
+          class="disabled:!bg-gray-200 disabled:!cursor-not-allowed"
+        />
+        <small id="username-help">Caculated automatically</small>
+      </div>
+    </div>
+
+    <div>
+      <p-floatlabel variant="on">
+        <textarea
+          pTextarea
+          rows="5"
+          cols="30"
+          style="resize: none"
+          class="!bg-white !text-[#333] focus:!border-black"
+          formControlName="reason"
+          fluid
+        ></textarea>
+        <label class="!bg-white !text-[#aaa]">Reason/Notes</label>
+      </p-floatlabel>
+    </div>
+
+    <div class="justify-end flex gap-3">
+      <app-button variant="secondary" [disabled]="requestForm.untouched" (onClick)="onCancel()"
+        >Cancel</app-button
+      >
+      <app-button type="submit" [disabled]="requestForm.invalid">Submit Request</app-button>
+    </div>
+  </form>
+</main>

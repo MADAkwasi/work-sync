@@ -7,7 +7,9 @@
   </div>
 
   <div class="flex items-center gap-2">
-    <app-button>New Request</app-button>
+    @if(!isCurrentRouteRequestFrom()){
+    <app-button (onClick)="handleLeaveRequest()">New Request</app-button>
+    }
     <app-icon icon="pi-sign-out" (onClick)="handleLogout()" />
     <app-avatar userInitials="MD" image="/images/profile-pic.jpg" />
   </div>
