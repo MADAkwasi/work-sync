@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormGroup, ValidationErrors } from '@angular/forms';
-import { errorMessages } from '../../shared/constants/errors';
+import { errorMessages } from '@shared/constants/errors';
 
 @Pipe({
   name: 'errorMessage',

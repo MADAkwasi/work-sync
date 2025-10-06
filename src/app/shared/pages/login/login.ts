@@ -5,8 +5,9 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ErrorMessagePipe } from '../../../core/pipes/error-message';
-import { Button } from '../../components/button/button';
+import { ErrorMessagePipe } from '@core/pipes/error-message/error-message';
+import { Button } from '@shared/components/button/button';
+
 
 @Component({
   selector: 'app-login',
