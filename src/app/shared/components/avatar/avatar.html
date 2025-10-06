@@ -1,0 +1,8 @@
+<p-avatar
+  [label]="image() ? undefined : userInitials()"
+  [image]="image()"
+  [class]="image() ? '' : 'p-7'"
+  size="large"
+  [ngClass]="{ 'bg-[#dee9fc] text-[#1a2551]': userInitials() }"
+  shape="circle"
+/>

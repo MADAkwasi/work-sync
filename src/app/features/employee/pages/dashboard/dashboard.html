@@ -1,0 +1,19 @@
+<app-header />
+<main class="px-6 py-8 flex flex-col gap-8">
+  <div>
+    <h1 class="font-bold text-3xl">My Leaves</h1>
+    <p class="font-light">Track and manage your time off requests</p>
+  </div>
+
+  <section class="flex flex-col gap-4">
+    <div class="flex gap-4 justify-between">
+      @for(card of cards; track $index){
+      <p-card [subheader]="card.title" class="!bg-white !w-1/4 2xl:!w-1/5">
+        <p class="text-[#222] text-3xl font-bold">{{ card.content }}</p>
+      </p-card>
+      }
+    </div>
+
+    <app-table />
+  </section>
+</main>
