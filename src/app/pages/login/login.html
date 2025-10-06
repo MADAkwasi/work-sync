@@ -17,42 +17,51 @@
     <form class="w-3/4 flex flex-col gap-5" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <h2 class="text-center text-3xl text-[#407BFF] mb-4 font-semibold">Login</h2>
 
-      <p-floatlabel variant="on">
-        <p-iconfield>
-          <p-inputicon class="pi pi-envelope" />
-          <input
-            pInputText
-            autocomplete="off"
-            pSize="large"
-            inputId="email"
-            formControlName="email"
-            type="email"
-            class="!bg-white !text-[#333] focus:!border-black"
-            fluid
-          />
-        </p-iconfield>
-        <label class="!bg-white !text-[#ccc]">Email</label>
-      </p-floatlabel>
+      <div>
+        <p-floatlabel variant="on">
+          <p-iconfield>
+            <p-inputicon class="pi pi-envelope" />
+            <input
+              pInputText
+              autocomplete="off"
+              pSize="large"
+              inputId="email"
+              formControlName="email"
+              type="email"
+              class="!bg-white !text-[#333] focus:!border-black"
+              fluid
+              [invalid]="loginForm.controls.email.invalid && loginForm.touched"
+            />
+          </p-iconfield>
+          <label class="!bg-white !text-[#ccc]">Email</label>
+        </p-floatlabel>
+        @if (loginForm | errorMessage: 'email'; as error) {
+        <p class="text-sm text-red-500">{{ error }}</p>
+        }
+      </div>
 
-      <p-floatlabel variant="on">
-        <p-iconfield>
-          <p-inputicon class="pi pi-lock" />
-          <p-password
-            [toggleMask]="true"
-            [feedback]="false"
-            size="large"
-            inputId="password"
-            formControlName="password"
-            inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
-            fluid
-          />
-        </p-iconfield>
-        <label class="!text-[#ccc] !bg-white">Password</label>
-      </p-floatlabel>
+      <div>
+        <p-floatlabel variant="on">
+          <p-iconfield>
+            <p-inputicon class="pi pi-lock" />
+            <p-password
+              [toggleMask]="true"
+              [feedback]="false"
+              size="large"
+              inputId="password"
+              formControlName="password"
+              inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
+              fluid
+            />
+          </p-iconfield>
+          <label class="!text-[#ccc] !bg-white">Password</label>
+        </p-floatlabel>
+        @if (loginForm | errorMessage: 'password'; as error) {
+        <p class="text-sm text-red-500">{{ error }}</p>
+        }
+      </div>
 
-      <button p-button class="bg-[#407BFF] mt-6 border-[#888] py-3 rounded-lg font-medium" fluid>
-        Submit
-      </button>
+      <app-button [disabled]="loginForm.invalid" type="submit"> Submit </app-button>
     </form>
   </div>
 </main>

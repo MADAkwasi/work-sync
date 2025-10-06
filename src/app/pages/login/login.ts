@@ -4,20 +4,22 @@ import { InputIconModule } from 'primeng/inputicon';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { ButtonModule } from 'primeng/button';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ErrorMessagePipe } from '../../core/pipes/error-message';
+import { Button } from "../../components/button/button";
 
 @Component({
   selector: 'app-login',
   imports: [
     IconFieldModule,
-    ButtonModule,
     InputIconModule,
     FloatLabelModule,
     InputTextModule,
     PasswordModule,
     ReactiveFormsModule,
-  ],
+    ErrorMessagePipe,
+    Button
+],
   templateUrl: './login.html',
 })
 export class Login {
@@ -28,6 +30,7 @@ export class Login {
   });
 
   protected onSubmit(): void {
+    if (this.loginForm.invalid) return;
     console.log(this.loginForm.value);
   }
 }
