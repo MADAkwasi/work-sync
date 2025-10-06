@@ -4,5 +4,9 @@
     <h1 class="text-3xl font-bold">WorkSync</h1>
   </div>
 
-  <app-button>New Request</app-button>
+  <div class="flex items-center gap-2">
+    <app-button>New Request</app-button>
+    <app-icon icon="pi-sign-out" (onClick)="handleLogout()" />
+    <app-avatar userInitials="MD" image="/images/profile-pic.jpg" />
+  </div>
 </header>

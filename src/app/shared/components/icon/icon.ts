@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Button } from '../button/button';
 
 @Component({
@@ -8,5 +8,10 @@ import { Button } from '../button/button';
 })
 export class Icon {
   public readonly icon = input('');
-  public readonly size = input('1.7');
+  public readonly size = input('1.5');
+  public readonly onClick = output();
+
+  protected handleClickEvent(): void {
+    this.onClick.emit();
+  }
 }

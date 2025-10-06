@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { ButtonTypes, ButtonVariants } from '../../models/button';
 
 @Component({
   selector: 'app-button',
@@ -7,8 +8,13 @@ import { Component, input } from '@angular/core';
   templateUrl: './button.html',
 })
 export class Button {
-  public readonly type = input<'button' | 'submit'>('button');
-  public readonly variant = input<'primary' | 'secondary' | 'tertiary'>('primary');
+  public readonly type = input<ButtonTypes>('button');
+  public readonly variant = input<ButtonVariants>('primary');
   public readonly disabled = input(false);
   public readonly fullWidth = input(false);
+  public readonly onClick = output();
+
+  protected hanldeClickEvent(): void {
+    this.onClick.emit();
+  }
 }
