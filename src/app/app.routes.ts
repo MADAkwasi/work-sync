@@ -7,6 +7,6 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login').then((Default) => Default.Login),
+    loadComponent: () => import('./shared/pages/login/login').then((Default) => Default.Login),
   },
 ];
