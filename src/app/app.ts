@@ -1,12 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
-  imports: [ButtonModule],
+  imports: [RouterOutlet],
   styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('work-sync');
-}
+export class App {}
