@@ -14,6 +14,10 @@ export class Header {
   private readonly router = inject(Router);
   private readonly endpoint = endpoints.pages;
 
+  protected handleLeaveRequest(): void {
+    this.router.navigate([this.endpoint.requestLeave]);
+  }
+
   protected handleLogout(): void {
     this.router.navigate([this.endpoint.loginPage]);
   }
