@@ -1,0 +1,27 @@
+<div class="px-4 flex justify-between items-center">
+  <p class="text-sm">Showing 1 to {{ amountOnDisplay() }} of {{ totalRecords() }} results</p>
+
+  <span class="flex items-center">
+    <app-icon
+      size="1.5"
+      icon="pi-angle-left"
+      class="mt-2"
+      (onClick)="prevPage()"
+      [isDisabled]="currentPage() === 1"
+    ></app-icon>
+    @for(page of pagesIndicator(); track $index){
+    <app-button
+      [variant]="currentPage() === page ? 'primary' : 'tertiary'"
+      (onClick)="goToPage(page)"
+      >{{ page }}</app-button
+    >
+    }
+    <app-icon
+      size="1.5"
+      icon="pi-angle-right"
+      class="mt-2"
+      (onClick)="nextPage()"
+      [isDisabled]="currentPage() >= numOfPages()"
+    ></app-icon>
+  </span>
+</div>
