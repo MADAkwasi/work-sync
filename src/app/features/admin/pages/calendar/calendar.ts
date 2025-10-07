@@ -3,12 +3,11 @@ import { Header } from '@shared/components/header/header';
 import { Icon } from '@shared/components/icon/icon';
 import { colors, days } from '@shared/constants/calendar';
 import { CalendarDay, CalendarEvent } from '@shared/models/calendar';
-import { Button } from '@shared/components/button/button';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.html',
-  imports: [Header, Icon, Button],
+  imports: [Header, Icon],
 })
 export class Calendar {
   private readonly currentDate = signal<Date>(new Date());
