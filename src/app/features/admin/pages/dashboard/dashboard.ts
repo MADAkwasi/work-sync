@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { Header } from '@shared/components/header/header';
 import { adminDashboardCards } from '@shared/constants/cards';
@@ -12,7 +12,7 @@ import { EMPLOYEE_LEAVES } from '@shared/constants/leave';
 })
 export class Dashboard {
   protected readonly cards = adminDashboardCards;
-  protected readonly leaves  = EMPLOYEE_LEAVES
+  protected readonly leaves = EMPLOYEE_LEAVES;
   protected readonly pendingRequests = computed(() =>
     this.leaves.filter((leave) => leave.status === 'pending')
   );

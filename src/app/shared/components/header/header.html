@@ -15,7 +15,7 @@
 
   <div class="flex items-center gap-2">
     @if(isAdmin()){
-    <app-button (onClick)="handleLeaveRequest()">Register New User</app-button>
+    <app-button (onClick)="isModalOpen.set(true)">Register New User</app-button>
     } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
     <app-button (onClick)="handleLeaveRequest()">New Request</app-button>
     }
@@ -23,3 +23,68 @@
     <app-avatar userInitials="MD" image="/images/profile-pic.jpg" />
   </div>
 </header>
+
+<p-dialog
+  header="Register New User"
+  [draggable]="false"
+  [modal]="true"
+  [visible]="isModalOpen()"
+  (visibleChange)="isModalOpen.set(false)"
+  styleClass="!bg-white !text-[#333] !flex !flex-col "
+  [style]="{ width: '25rem' }"
+>
+  <div class="my-4">
+    <p-floatlabel variant="on">
+      <p-iconfield>
+        <p-inputicon class="pi pi-user" />
+        <input
+          pInputText
+          autocomplete="off"
+          pSize="large"
+          class="!bg-white !text-[#333] focus:!border-black"
+          fluid
+        />
+      </p-iconfield>
+      <label class="!bg-white !text-[#bbb]">Username</label>
+    </p-floatlabel>
+    <!-- @if (loginForm | errorMessage: 'email'; as error) {
+    <p class="text-sm text-red-500">{{ error }}</p>
+    } -->
+  </div>
+
+  <div class="mb-4">
+    <p-floatlabel variant="on">
+      <p-iconfield>
+        <p-inputicon class="pi pi-lock" />
+        <p-password
+          [toggleMask]="true"
+          [feedback]="false"
+          size="large"
+          inputId="password"
+          formControlName="password"
+          inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
+          fluid
+        />
+      </p-iconfield>
+      <label class="!text-[#bbb] !bg-white">Password</label>
+    </p-floatlabel>
+    <!-- @if (loginForm | errorMessage: 'password'; as error) {
+    <p class="text-sm text-red-500">{{ error }}</p>
+    } -->
+  </div>
+
+  <div class="mb-4">
+    <p-select
+      [options]="['Admin', 'User']"
+      placeholder="Role"
+      size="large"
+      class="!bg-white !text-[#333] active:!border-black"
+      fluid
+    />
+  </div>
+
+  <div class="flex justify-end gap-2">
+    <app-button variant="secondary" (onClick)="handleModalCancel()">Cancel</app-button>
+    <app-button (onClick)="handleUserRegistration()">Save</app-button>
+  </div>
+</p-dialog>
