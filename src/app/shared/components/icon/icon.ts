@@ -11,6 +11,7 @@ export class Icon {
   public readonly size = input('1.5');
   public readonly onClick = output();
   public readonly isDisabled = input(false);
+  public readonly customStyles = input('');
 
   protected handleClickEvent(): void {
     this.onClick.emit();

@@ -1,0 +1,26 @@
+export const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+export const colors = [
+  'bg-[#2071f3]/20',
+  'bg-orange-500/20',
+  'bg-purple-500/20',
+  'bg-gray-200 border-2 border-dashed border-gray-400',
+  'bg-green-500/20',
+  'bg-red-500/20',
+  'bg-pink-500/20',
+  'bg-indigo-500/20',
+  'bg-teal-500/20',
+  'bg-amber-500/20',
+  'bg-cyan-500/20',
+  'bg-lime-500/20',
+  'bg-emerald-500/20',
+  'bg-violet-500/20',
+  'bg-fuchsia-500/20',
+  'bg-rose-500/20',
+  'bg-sky-500/20',
+  'bg-yellow-500/20',
+  'bg-blue-500/20',
+  'bg-red-400/20',
+  'bg-green-400/20',
+  'bg-purple-400/20',
+];
