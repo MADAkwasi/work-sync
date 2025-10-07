@@ -1,6 +1,5 @@
 export const errorMessages = {
   required: 'This is a required field',
-  email: 'Invalid email format',
   // password: 'Passwords must be at least 12 characters with letters, numbers, and symbols',
   // passwordMismatch: 'Passwords do not match. Please make sure both fields are the same.',
   minLength: (min: number) => `Minimum length is ${min} characters.`,

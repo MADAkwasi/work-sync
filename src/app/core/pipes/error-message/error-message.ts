@@ -15,7 +15,6 @@ export class ErrorMessagePipe implements PipeTransform {
     const errors: ValidationErrors | null = element.errors;
     if (!errors) return;
 
-    if (errors['email']) return errorMessages.email;
     if (errors['required']) return errorMessages.required;
     if (errors['minlength']) return errorMessages.minLength(3);
 

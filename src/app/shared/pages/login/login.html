@@ -25,17 +25,17 @@
               pInputText
               autocomplete="off"
               pSize="large"
-              inputId="email"
-              formControlName="email"
-              type="email"
+              inputId="username"
+              formControlName="username"
+              type="username"
               class="!bg-white !text-[#333] focus:!border-black"
               fluid
-              [invalid]="loginForm.controls.email.invalid && loginForm.touched"
+              [invalid]="loginForm.controls.username.invalid && loginForm.touched"
             />
           </p-iconfield>
-          <label class="!bg-white !text-[#ccc]">Email</label>
+          <label class="!bg-white !text-[#ccc]">Username</label>
         </p-floatlabel>
-        @if (loginForm | errorMessage: 'email'; as error) {
+        @if (loginForm | errorMessage: 'username'; as error) {
         <p class="text-sm text-red-500">{{ error }}</p>
         }
       </div>
