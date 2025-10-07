@@ -65,12 +65,19 @@
     @if (paginatedData().length === 0) {
     <tr>
       <td [colSpan]="headColumns().length" class="text-center py-8 text-gray-500">
-        No patients found
+        <app-icon icon="pi-ethereum" size="5" />
+        <p class="text-lg my-3">You do not have any leave history</p>
       </td>
     </tr>
     } @else { @for (leave of paginatedData(); track $index) {
     <tr class="border-gray-200 hover:bg-gray-100 transition-colors" [class.border-b]="!$last">
-      <td class="p-4">{{ variant() === 'standard' ? 'Casual' : leave.employeeName }}</td>
+      @if(variant() === 'standard'){
+      <td class="p-4 text-center">
+        <app-icon icon="pi-ethereum" size="1.5" />
+      </td>
+      }@else {
+      <td class="p-4">{{ leave.employeeName }}</td>
+      }
       <td class="p-4 text-gray-600 text-sm">{{ leave.startDate | date : 'dd MMM, yyyy' }}</td>
       <td class="p-4 text-gray-600 text-sm">{{ leave.endDate | date : 'dd MMM, yyyy' }}</td>
       <td class="p-4 text-gray-600 text-sm">
@@ -84,12 +91,8 @@
           [value]="leave.status"
         />
       </td>
-      @if(variant()!=='view-all'){
-
+      @if(variant() === 'pending'){
       <td class="py-4 px-2">
-        @if(variant() === 'standard'){
-        <app-button variant="tertiary"> View </app-button>
-        }@else{
         <div class="flex gap-2 justify-center">
           <app-button customStyles="bg-green-500 hover:bg-green-600 active:bg-green-700">
             Approve
@@ -98,7 +101,6 @@
             Reject
           </app-button>
         </div>
-        }
       </td>
       }
     </tr>

@@ -16,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { date, status } from '@shared/constants/filter';
 import { Pagination } from '../pagination/pagination';
+import { Icon } from "../icon/icon";
 
 @Component({
   selector: 'app-table',
@@ -30,7 +31,8 @@ import { Pagination } from '../pagination/pagination';
     InputTextModule,
     SelectModule,
     Pagination,
-  ],
+    Icon
+],
   templateUrl: './table.html',
 })
 export class Table {

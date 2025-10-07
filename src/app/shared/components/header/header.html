@@ -8,8 +8,18 @@
 
   @if(isAdmin()){
   <div class="flex gap-5 text-center items-center self-center">
-    <a routerLink="/admin" routerLinkActive="text-blue-500 font-semibold">Home</a>
-    <a routerLink="/admin/calendar" routerLinkActive="text-blue-500 font-semibold">Calendar</a>
+    <a
+      routerLink="/admin"
+      routerLinkActive="text-blue-500 font-semibold"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a
+    >
+    <a
+      routerLink="/admin/calendar"
+      routerLinkActive="text-blue-500 font-semibold"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Calendar</a
+    >
   </div>
   }
 
