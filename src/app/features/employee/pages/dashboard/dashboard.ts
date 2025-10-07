@@ -3,6 +3,7 @@ import { CardModule } from 'primeng/card';
 import { Header } from '@shared/components/header/header';
 import { employeeDashboardCards } from '@shared/constants/cards';
 import { Table } from "@shared/components/table/table";
+import { EMPLOYEE_LEAVES } from '@shared/constants/leave';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,4 +12,5 @@ import { Table } from "@shared/components/table/table";
 })
 export class Dashboard {
   protected readonly cards = employeeDashboardCards;
+  protected readonly leaves = EMPLOYEE_LEAVES
 }

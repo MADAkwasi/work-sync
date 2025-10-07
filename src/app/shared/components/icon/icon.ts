@@ -7,9 +7,10 @@ import { Button } from '../button/button';
   templateUrl: './icon.html',
 })
 export class Icon {
-  public readonly icon = input('');
+  public readonly icon = input.required<string>();
   public readonly size = input('1.5');
   public readonly onClick = output();
+  public readonly isDisabled = input(false);
 
   protected handleClickEvent(): void {
     this.onClick.emit();

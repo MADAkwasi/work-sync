@@ -1,3 +1,3 @@
-<app-button variant="tertiary" (onClick)="handleClickEvent()">
+<app-button variant="tertiary" (onClick)="handleClickEvent()" [disabled]="isDisabled()">
   <i class="pi" [class]="icon()" [style]="'font-size: ' + size() + 'rem'"></i>
 </app-button>

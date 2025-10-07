@@ -6,7 +6,7 @@
         class="text-sm gap-3 my-2 cursor-pointer self-start flex items-center"
         (click)="handleNavigateBack()"
       >
-        <i class="pi pi-arrow-left"></i>
+        <i class="pi pi-angle-left"></i>
         <p>Go Back</p>
       </button>
       <h1 class="font-bold text-3xl">Request Time Off</h1>
@@ -22,6 +22,7 @@
               iconDisplay="input"
               inputStyleClass="!bg-white !text-[#333] focus:!border-black"
               formControlName="startDate"
+              baseZIndex="50"
               fluid
             />
             <label class="!bg-white !text-[#aaa]">Start Date</label>
@@ -35,6 +36,7 @@
               iconDisplay="input"
               inputStyleClass="!bg-white !text-[#333] focus:!border-black"
               formControlName="endDate"
+              baseZIndex="50"
               fluid
             />
             <label class="!bg-white !text-[#aaa]">End Date</label>

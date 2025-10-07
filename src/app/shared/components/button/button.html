@@ -1,6 +1,7 @@
 <button
   class="py-2 rounded-xl font-medium px-4 cursor-pointer disabled:cursor-not-allowed"
-  [class]="fullWidth() ? 'w-full' : 'w-auto'"
+  [class.w-full]="fullWidth()"
+  [class]="customStyles()"
   [ngClass]="{
     'bg-[#407BFF] border-[#888] text-white
      hover:bg-[#3060d1] active:bg-[#305ec3]

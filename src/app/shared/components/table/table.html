@@ -1,26 +1,78 @@
 <table class="w-full">
-  <caption class="text-left px-4 py-3 font-bold text-lg rounded-t-lg bg-white">
-    My Leave Requests
+  <caption
+    class="text-left px-4 py-3 font-bold text-lg rounded-t-lg bg-white"
+    [class.text-yellow-500]="variant() === 'pending'"
+  >
+    <h2>
+      {{
+        variant() === 'standard'
+          ? 'My Leave Requests'
+          : variant() === 'pending'
+          ? 'Requires Attention'
+          : 'All Leave Requests'
+      }}
+    </h2>
+
+    @if(variant() === 'view-all'){
+
+    <div class="my-4 flex gap-6">
+      <div class="w-3/4">
+        <p-floatlabel variant="on">
+          <p-iconfield>
+            <p-inputicon class="pi pi-search" />
+            <input
+              pInputText
+              autocomplete="off"
+              pSize="small"
+              class="!bg-white !text-[#333] focus:!border-black"
+              fluid
+            />
+          </p-iconfield>
+          <label class="!bg-white !text-[#ccc]">Search by employee name</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="w-1/4 flex justify-around items-center gap-2">
+        <p-select
+          [options]="statusFilter"
+          placeholder="Status"
+          size="small"
+          class="!bg-white !text-[#333] active:!border-black"
+        />
+        <p-select
+          [options]="dateFilter"
+          placeholder="Date Range"
+          size="small"
+          class="!bg-white !text-[#333] active:!border-black"
+        />
+      </div>
+    </div>
+    }
   </caption>
   <thead class="border-l border-r border-gray-200">
     <tr class="border-b border-gray-200 bg-tertiary-black">
-      @for (col of headColumns; track $index) {
-      <th class="text-left py-3 px-4 font-medium text-gray-700 text-sm">{{ col }}</th>
+      @for (col of headColumns(); track $index) {
+      <th
+        class="py-3 px-4 font-medium text-gray-700 text-sm"
+        [class]="col === 'Actions' && variant() === 'pending' ? 'text-center' : 'text-left'"
+      >
+        {{ col }}
+      </th>
       }
     </tr>
   </thead>
   <tbody class="bg-white">
-    @if (leaves().length === 0) {
+    @if (paginatedData().length === 0) {
     <tr>
-      <td [colSpan]="headColumns.length" class="text-center py-8 text-gray-500">
+      <td [colSpan]="headColumns().length" class="text-center py-8 text-gray-500">
         No patients found
       </td>
     </tr>
-    } @else { @for (leave of leaves(); track $index) {
+    } @else { @for (leave of paginatedData(); track $index) {
     <tr class="border-gray-200 hover:bg-gray-100 transition-colors" [class.border-b]="!$last">
-      <td class="p-4">Casual</td>
-      <td class="p-4 text-gray-600 text-sm">{{ leave.startDate | date : 'dd MMM, yy' }}</td>
-      <td class="p-4 text-gray-600 text-sm">{{ leave.endDate | date : 'dd MMM, yy' }}</td>
+      <td class="p-4">{{ variant() === 'standard' ? 'Casual' : leave.employeeName }}</td>
+      <td class="p-4 text-gray-600 text-sm">{{ leave.startDate | date : 'dd MMM, yyyy' }}</td>
+      <td class="p-4 text-gray-600 text-sm">{{ leave.endDate | date : 'dd MMM, yyyy' }}</td>
       <td class="p-4 text-gray-600 text-sm">
         {{ leave.startDate | leaveDuration : leave.endDate }} days
       </td>
@@ -32,24 +84,38 @@
           [value]="leave.status"
         />
       </td>
+      @if(variant()!=='view-all'){
+
       <td class="py-4 px-2">
+        @if(variant() === 'standard'){
         <app-button variant="tertiary"> View </app-button>
+        }@else{
+        <div class="flex gap-2 justify-center">
+          <app-button customStyles="bg-green-500 hover:bg-green-600 active:bg-green-700">
+            Approve
+          </app-button>
+          <app-button customStyles="bg-red-500 hover:bg-red-600 active:bg-red-700">
+            Reject
+          </app-button>
+        </div>
+        }
       </td>
+      }
     </tr>
-    } }
+    } } @if((variant()=== 'pending' && data().length > 3) || (variant() === 'view-all' &&
+    data().length > 5) || (variant() === 'standard' && data().length > 7)){
     <tr>
       <td
-        [colSpan]="headColumns.length"
-        class="bg-white text-center rounded-b-lg py-6 border-t border-gray-200"
+        [colSpan]="headColumns().length"
+        class="bg-white rounded-b-lg py-6 border-t border-gray-200"
       >
-        Pagination Goes Here
+        <app-pagination
+          [totalRecords]="totalRecords()"
+          [amountOnDisplay]="amountOnDisplay()"
+          (pageChanged)="handlePageChange($event)"
+        />
       </td>
     </tr>
+    }
   </tbody>
 </table>
-<!-- <app-pagination
-  [numOfPages]="1"
-  [totalRecords]="0"
-  class="px-6 inline-block w-full mt-4"
-  [amountOnDisplay]="pageItems().length"
-/> -->

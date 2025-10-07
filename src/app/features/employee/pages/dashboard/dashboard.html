@@ -5,7 +5,7 @@
     <p class="font-light">Track and manage your time off requests</p>
   </div>
 
-  <section class="flex flex-col gap-4">
+  <section class="flex flex-col gap-8">
     <div class="flex gap-4 justify-between">
       @for(card of cards; track $index){
       <p-card [subheader]="card.title" class="!bg-white !w-1/4 2xl:!w-1/5">
@@ -14,6 +14,6 @@
       }
     </div>
 
-    <app-table />
+    <app-table [data]="leaves" />
   </section>
 </main>
