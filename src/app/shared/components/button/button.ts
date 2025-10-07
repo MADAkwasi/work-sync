@@ -11,6 +11,7 @@ export class Button {
   public readonly type = input<ButtonTypes>('button');
   public readonly variant = input<ButtonVariants>('primary');
   public readonly disabled = input(false);
+  public readonly customStyles = input('');
   public readonly fullWidth = input(false);
   public readonly onClick = output();
 

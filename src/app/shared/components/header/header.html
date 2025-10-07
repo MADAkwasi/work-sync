@@ -6,8 +6,17 @@
     <h2 class="text-2xl font-bold">WorkSync</h2>
   </div>
 
+  @if(isAdmin()){
+  <div class="flex gap-5 text-center items-center self-center">
+    <a routerLink="/admin" routerLinkActive="text-blue-500 font-semibold">Home</a>
+    <a routerLink="/admin/calendar" routerLinkActive="text-blue-500 font-semibold">Calendar</a>
+  </div>
+  }
+
   <div class="flex items-center gap-2">
-    @if(!isCurrentRouteRequestFrom()){
+    @if(isAdmin()){
+    <app-button (onClick)="handleLeaveRequest()">Register New User</app-button>
+    } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
     <app-button (onClick)="handleLeaveRequest()">New Request</app-button>
     }
     <app-icon icon="pi-sign-out" (onClick)="handleLogout()" />
