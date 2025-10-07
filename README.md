@@ -1,59 +1,171 @@
-# WorkSync
+# Leave Management System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.4.
+A modern, responsive Leave Management System built with Angular that helps teams track employee time off and prevent scheduling conflicts.
 
-## Development server
+## 🌟 Features
 
-To start a local development server, run:
+### 🔐 Authentication & Security
+
+- **User Registration & Login** - Secure account creation and authentication
+- **JWT Token Management** - Automatic token handling for all requests
+- **API Key Validation** - Every request includes required security headers
+- **Role-based Access Control** - Different permissions for normal users and admins
+
+### 👤 User Features
+
+- **View Personal Leave Requests** - See your own leave history and status
+- **Create New Leave Requests** - Submit vacation, sick leave, or personal time off
+- **Real-time Status Updates** - Track pending, approved, or rejected requests
+
+### 👨‍💼 Admin Features
+
+- **Dashboard Overview** - View all team leave requests
+- **Approve/Reject Requests** - Manage employee time off approvals
+- **Team Calendar** - Comprehensive view of all employee absences
+
+### 📅 Calendar Magic
+
+- **Visual Leave Calendar** - Color-coded calendar view showing employee absences
+- **Employee Information** - See who is away and when
+- **Leave Type Indicators** - Different colors for vacation, sick leave, personal time
+- **Status Tracking** - Visual indicators for pending, approved, rejected requests
+- **Date Range Display** - Clear visibility of leave durations
+
+### 🎨 UI/UX
+
+- **Modern Design** - Clean, professional interface
+- **Fully Responsive** - Works seamlessly on desktop, tablet, and mobile
+- **Dark/Light Mode** - Built-in theme support
+- **Intuitive Navigation** - Easy-to-use interface
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- Angular CLI
+- Modern web browser
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone [repository-url]
+   cd leave-management-system
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment**
+
+   ```bash
+   # Update src/environments/environment.ts with your backend API URL
+   export const environment = {
+     production: false,
+     apiUrl: 'YOUR_BACKEND_API_URL'
+   };
+   ```
+
+4. **Start development server**
+   ```bash
+   ng serve
+   ```
+   Navigate to `http://localhost:4200`
+
+### Building for Production
 
 ```bash
-ng serve
+ng build --prod
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 📱 Usage
 
-## Code scaffolding
+### For Employees
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. **Register/Login** to your account
+2. **View your dashboard** to see current leave requests
+3. **Create new requests** for time off
+4. **Check calendar** to see team availability
 
-```bash
-ng generate component component-name
+### For Managers/Admins
+
+1. **Login with admin credentials**
+2. **Access admin dashboard** to view all requests
+3. **Approve or reject** pending leave requests
+4. **Monitor team calendar** for scheduling conflicts
+
+## 🛠️ Technical Stack
+
+- **Frontend Framework**: Angular
+- **Styling**: Tailwind CSS
+- **Authentication**: JWT Tokens
+- **State Management**: Angular Signals
+- **Deployment**: Netlify/Vercel
+- **Icons**: Material Symbols
+
+## 🔒 Security Features
+
+- JWT Token authentication
+- API key validation on all requests
+- Route guards for protected routes
+- Automatic token refresh
+- Secure localStorage/sessionStorage handling
+
+## 🎯 Bonus Features Implemented
+
+- ✅ **Role-based routing** - Normal users cannot access admin dashboard
+- ✅ **Search & Filter** - Filter calendar by person or leave type
+- ✅ **Responsive Design** - Modern, mobile-friendly UI
+- ✅ **Color-coded Calendar** - Visual indicators for different leave types and statuses
+- ✅ **Dark Mode Support** - Built-in theme switching
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── components/     # Reusable UI components
+│   ├── pages/          # Main application pages
+│   ├── services/       # API services and business logic
+│   ├── guards/         # Route protection
+│   ├── interfaces/     # TypeScript interfaces
+│   └── utils/          # Helper functions
+├── assets/            # Static assets
+└── environments/      # Environment configurations
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🌐 Deployment
 
-```bash
-ng generate --help
-```
+The application is deployed on:
 
-## Building
+- **Frontend**: [Your Hosted URL]
+- **Backend**: [Provided Backend API URL]
 
-To build the project run:
+### Deployment Platforms Supported
 
-```bash
-ng build
-```
+- Netlify
+- Vercel
+- Render
+- GitHub Pages
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 📞 Support
 
-## Running unit tests
+For technical support or questions about this project, please contact:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+**THE DIGICOAST**  
+📞 +44 78 1833 5634 | +233 54 648 4338  
+📧 info@thedigicoast.com  
+🌐 thedigicoast.com
 
-```bash
-ng test
-```
+## 📄 License
 
-## Running end-to-end tests
+This project was developed as part of the Digicoast Graduate Intern Frontend Assessment.
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Built with ❤️ for Worksync - Solving the case of vanishing colleagues**
