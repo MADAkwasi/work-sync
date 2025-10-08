@@ -1,5 +1,7 @@
 <header
-  class="w-full flex justify-between items-center px-5 border-b top-0 z-50 bg-white border-b-[#ddd] sticky py-2 shadow-lg"
+  class="w-full flex justify-between items-center px-5 border-b top-0 z-50 bg-white border-b-[#ddd] sticky py-2"
+  [class.z-40]="isMenuOpen()"
+  [class.shadow-lg]="!isMenuOpen()"
 >
   <div class="flex justify-center items-center w-fit">
     <app-icon icon="pi-ethereum" size="2.6" customStyles="!p-0" />
@@ -42,7 +44,11 @@
     }
     <app-avatar userInitials="MD" />
     @if(!isCurrentRouteRequestFrom()){
-    <app-icon icon="pi-bars" customStyles="block md:hidden !p-0" (onClick)="handleMenuToggle()" />
+    <app-icon
+      [icon]="isMenuOpen() ? 'pi-times' : 'pi-bars'"
+      customStyles="block md:hidden !p-0"
+      (onClick)="handleMenuToggle()"
+    />
     }
   </div>
 </header>
@@ -112,9 +118,11 @@
   </div>
 </p-dialog>
 
-@if(isMenuOpen()){
 <div
-  class="fixed z-50 top-[73px] left-0 w-full overflow-hidden bg-white md:hidden flex flex-col p-4 shadow-lg gap-4"
+  class="fixed z-40 top-[73px] left-0 w-full overflow-hidden bg-white md:hidden flex flex-col p-4 gap-4 transform transition-transform duration-300 ease-in-out"
+  [class.translate-y-0]="isMenuOpen()"
+  [class.-translate-y-full]="!isMenuOpen()"
+  [class.shadow-lg]="isMenuOpen()"
 >
   <a routerLink="/admin" class="text-blue-500 font-semibold px-4">Home</a>
   <a routerLink="/admin/calendar" class="text-blue-500 font-semibold px-4">Calendar</a>
@@ -125,9 +133,8 @@
   <app-button (onClick)="handleLeaveRequest()" variant="tertiary">New Request</app-button>
   }
 
-  <app-button variant="tertiary" customStyles="flex items-center gap-3 !mb-4">
+  <app-button variant="tertiary" customStyles="flex items-center gap-3 !mb-4 !-mt-2">
     <app-icon icon="pi-sign-out" size="1" (onClick)="handleLogout()" customStyles="!p-0" />
     <p>Log out</p>
   </app-button>
 </div>
-}
