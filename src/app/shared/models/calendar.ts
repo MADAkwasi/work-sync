@@ -1,3 +1,5 @@
+import { LeaveStatus } from './leave';
+
 export interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
@@ -5,6 +7,7 @@ export interface CalendarDay {
 }
 
 export interface CalendarEvent {
+  id: number;
   name: string;
-  type: 'vacation' | 'sick' | 'personal' | 'pending' | 'approved' | 'rejected';
+  type: LeaveStatus;
 }

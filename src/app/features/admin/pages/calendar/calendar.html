@@ -25,9 +25,12 @@
       </div>
 
       @if(day.events && day.events.length > 0) {
-      <div class="md:mt-1 space-y-1 flex flex-wrap md:block">
-        @for(event of day.events; track event.name) {
-        <div class="flex items-center gap-2 p-1 rounded-lg" [class]="getEventClasses(event.type)">
+      <div class="md:mt-1 flex flex-wrap md:block">
+        @for(event of day.events; track event.id) {
+        <div
+          class="flex md:my-1 items-center gap-2 p-1 rounded-lg"
+          [class]="getEventClasses(event.type)"
+        >
           <div
             class="w-2 md:w-4 h-2 md:h-4 rounded-full"
             [class]="getEventDotClass(event.type)"

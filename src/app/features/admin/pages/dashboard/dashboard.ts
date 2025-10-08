@@ -7,6 +7,7 @@ import { finalize } from 'rxjs';
 import { Leave, LeaveStatus } from '@shared/models/leave';
 import { ToastService } from '@core/services/toast/toast';
 import { LeaveService } from '@core/services/leave/leave';
+import { LeaveStore } from '@core/store/leave.store';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,7 @@ import { LeaveService } from '@core/services/leave/leave';
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
+  private readonly store = inject(LeaveStore);
   private readonly leaveService = inject(LeaveService);
   private readonly toast = inject(ToastService);
   protected readonly isFetching = signal(false);
@@ -34,7 +36,10 @@ export class Dashboard {
       .getAllLeaves()
       .pipe(finalize(() => this.isFetching.set(false)))
       .subscribe({
-        next: (res) => this.leaves.set(res),
+        next: (res) => {
+          this.leaves.set(res);
+          this.store.setLeaves(this.leaves());
+        },
         error: ({ error }) => this.toast.show(operations.fetchFailed, status.error, error.message),
       });
   }
