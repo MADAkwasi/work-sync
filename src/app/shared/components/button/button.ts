@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
-import { ButtonTypes, ButtonVariants } from '../../models/button';
+import { ButtonTypes, ButtonVariants } from '@shared/models/button';
 
 @Component({
   selector: 'app-button',
@@ -13,9 +13,9 @@ export class Button {
   public readonly disabled = input(false);
   public readonly customStyles = input('');
   public readonly fullWidth = input(false);
-  public readonly onClick = output();
+  public readonly onClick = output<Event>();
 
-  protected hanldeClickEvent(): void {
-    this.onClick.emit();
+  protected hanldeClickEvent(event: Event): void {
+    this.onClick.emit(event);
   }
 }

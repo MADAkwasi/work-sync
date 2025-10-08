@@ -16,6 +16,11 @@ export const routes: Routes = [
     loadComponent: () => import('./shared/pages/login/login').then((Default) => Default.Login),
   },
   {
+    path: 'register',
+    loadComponent: () =>
+      import('./shared/pages/register/register').then((Default) => Default.Register),
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',

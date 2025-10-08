@@ -34,6 +34,7 @@ export class Header implements OnInit {
   protected readonly isCurrentRouteRequestFrom = signal(false);
   protected readonly isModalOpen = signal(false);
   protected readonly isAdmin = signal(false);
+  protected readonly isMenuOpen = signal(false);
   private readonly endpoint = endpoints.pages;
 
   ngOnInit(): void {
@@ -44,10 +45,12 @@ export class Header implements OnInit {
 
   protected handleLeaveRequest(): void {
     this.router.navigate([this.endpoint.requestLeave]);
+    this.isMenuOpen.set(false);
   }
 
   protected handleLogout(): void {
     this.router.navigate([this.endpoint.loginPage]);
+    this.isMenuOpen.set(false);
   }
 
   protected handleModalCancel(): void {
@@ -56,5 +59,9 @@ export class Header implements OnInit {
 
   protected handleUserRegistration(): void {
     this.isModalOpen.set(false);
+  }
+
+  protected handleMenuToggle(): void {
+    this.isMenuOpen.update((isOpen) => !isOpen);
   }
 }

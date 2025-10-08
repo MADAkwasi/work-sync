@@ -9,11 +9,11 @@ import { Button } from '../button/button';
 export class Icon {
   public readonly icon = input.required<string>();
   public readonly size = input('1.5');
-  public readonly onClick = output();
+  public readonly onClick = output<Event>();
   public readonly isDisabled = input(false);
   public readonly customStyles = input('');
 
-  protected handleClickEvent(): void {
-    this.onClick.emit();
+  protected handleClickEvent(event: Event): void {
+    this.onClick.emit(event);
   }
 }

@@ -1,13 +1,17 @@
 <header
-  class="w-full flex justify-between items-center px-5 border-b top-0 z-50 bg-white border-b-[#ddd] sticky py-2 shadow-lg"
+  class="w-full flex justify-between items-center px-5 border-b top-0 z-50 bg-white border-b-[#ddd] sticky py-2"
+  [class.z-40]="isMenuOpen()"
+  [class.shadow-lg]="!isMenuOpen()"
 >
-  <div class="flex justify-center items-center w-fit -ml-5">
-    <app-icon icon="pi-ethereum" size="2.6" />
-    <h2 class="text-2xl font-bold">WorkSync</h2>
+  <div class="flex justify-center items-center w-fit">
+    <app-icon icon="pi-ethereum" size="2.6" customStyles="!p-0" />
+    <h2 class="text-xl md:text-2xl font-bold">WorkSync</h2>
   </div>
 
   @if(isAdmin()){
-  <div class="flex gap-5 text-center items-center self-center">
+  <div
+    class="hidden md:flex gap-5 text-center items-center self-center absolute left-[50%] -translate-x-[50%] text-sm lg:text-base"
+  >
     <a
       routerLink="/admin"
       routerLinkActive="text-blue-500 font-semibold"
@@ -21,16 +25,31 @@
       >Calendar</a
     >
   </div>
-  }
-
-  <div class="flex items-center gap-2">
+  } @if(!isCurrentRouteRequestFrom()){
+  <div class="items-center gap-4 ml-auto hidden md:flex">
     @if(isAdmin()){
-    <app-button (onClick)="isModalOpen.set(true)">Register New User</app-button>
+    <app-button (onClick)="isModalOpen.set(true)" customStyles="!text-sm !md:text-base"
+      >Register New User</app-button
+    >
     } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
     <app-button (onClick)="handleLeaveRequest()">New Request</app-button>
     }
-    <app-icon icon="pi-sign-out" (onClick)="handleLogout()" />
-    <app-avatar userInitials="MD" image="/images/profile-pic.jpg" />
+    <app-icon icon="pi-sign-out" (onClick)="handleLogout()" customStyles="!p-0" />
+  </div>
+  }
+
+  <div class="flex items-center gap-4 md:ml-3">
+    @if(isCurrentRouteRequestFrom()){
+    <app-icon icon="pi-sign-out" (onClick)="handleLogout()" customStyles="!p-0" />
+    }
+    <app-avatar userInitials="MD" />
+    @if(!isCurrentRouteRequestFrom()){
+    <app-icon
+      [icon]="isMenuOpen() ? 'pi-times' : 'pi-bars'"
+      customStyles="block md:hidden !p-0"
+      (onClick)="handleMenuToggle()"
+    />
+    }
   </div>
 </header>
 
@@ -63,6 +82,16 @@
   </div>
 
   <div class="mb-4">
+    <p-select
+      [options]="['Admin', 'User']"
+      placeholder="Role"
+      size="large"
+      class="!bg-white !text-[#333] active:!border-black"
+      fluid
+    />
+  </div>
+
+  <div class="mb-4">
     <p-floatlabel variant="on">
       <p-iconfield>
         <p-inputicon class="pi pi-lock" />
@@ -83,18 +112,29 @@
     } -->
   </div>
 
-  <div class="mb-4">
-    <p-select
-      [options]="['Admin', 'User']"
-      placeholder="Role"
-      size="large"
-      class="!bg-white !text-[#333] active:!border-black"
-      fluid
-    />
-  </div>
-
   <div class="flex justify-end gap-2">
     <app-button variant="secondary" (onClick)="handleModalCancel()">Cancel</app-button>
     <app-button (onClick)="handleUserRegistration()">Save</app-button>
   </div>
 </p-dialog>
+
+<div
+  class="fixed z-40 top-[73px] left-0 w-full overflow-hidden bg-white md:hidden flex flex-col p-4 gap-4 transform transition-transform duration-300 ease-in-out"
+  [class.translate-y-0]="isMenuOpen()"
+  [class.-translate-y-full]="!isMenuOpen()"
+  [class.shadow-lg]="isMenuOpen()"
+>
+
+@if(isAdmin()){
+    <a routerLink="/admin" class="text-blue-500 font-semibold px-4">Home</a>
+    <a routerLink="/admin/calendar" class="text-blue-500 font-semibold px-4">Calendar</a>
+  <app-button (onClick)="isModalOpen.set(true)" variant="tertiary">Register New User</app-button>
+  } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
+  <app-button (onClick)="handleLeaveRequest()" variant="tertiary">New Request</app-button>
+  }
+
+  <app-button variant="tertiary" customStyles="flex items-center gap-3 !mb-4 !-mt-2">
+    <app-icon icon="pi-sign-out" size="1" (onClick)="handleLogout()" customStyles="!p-0" />
+    <p>Log out</p>
+  </app-button>
+</div>
