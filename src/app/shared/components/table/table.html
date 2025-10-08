@@ -17,38 +17,20 @@
     </h2>
 
     @if(variant() === 'view-all'){
-
-    <div class="my-4 flex gap-6">
-      <div class="w-3/4">
-        <p-floatlabel variant="on">
-          <p-iconfield>
-            <p-inputicon class="pi pi-search" />
-            <input
-              pInputText
-              autocomplete="off"
-              pSize="small"
-              class="!bg-white !text-[#333] focus:!border-black"
-              fluid
-            />
-          </p-iconfield>
-          <label class="!bg-white !text-[#ccc]">Search by employee name</label>
-        </p-floatlabel>
-      </div>
-
-      <div class="w-1/4 flex justify-around items-center gap-2">
-        <p-select
-          [options]="statusFilter"
-          placeholder="Status"
-          size="small"
-          class="!bg-white !text-[#333] active:!border-black"
-        />
-        <p-select
-          [options]="dateFilter"
-          placeholder="Date Range"
-          size="small"
-          class="!bg-white !text-[#333] active:!border-black"
-        />
-      </div>
+    <div class="my-2 w-full">
+      <p-floatlabel variant="on">
+        <p-iconfield>
+          <p-inputicon class="pi pi-search" />
+          <input
+            pInputText
+            autocomplete="off"
+            pSize="small"
+            class="!bg-white !text-[#333] focus:!border-black"
+            fluid
+          />
+        </p-iconfield>
+        <label class="!bg-white !text-[#ccc]">Search by employee name</label>
+      </p-floatlabel>
     </div>
     }
   </caption>
@@ -58,9 +40,18 @@
       <th
         class="py-3 px-4 font-medium text-gray-700 text-xs md:text-sm"
         [class]="col === 'Actions' && variant() === 'pending' ? 'text-center' : 'text-left'"
-        [ngClass]="{
-          'hidden md:table-cell': col === '' && variant() === 'standard'
-        }"
+        [ngClass]="[
+          col === '' && variant() === 'standard' ? 'hidden' : '',
+          col === '' && variant() === 'standard' ? 'md:table-cell' : '',
+          (col === 'Duration' && variant() === 'view-all') ||
+          ((col === 'Duration' || col === 'Status') && variant() === 'pending')
+            ? 'hidden'
+            : '',
+          (col === 'Duration' && variant() === 'view-all') ||
+          ((col === 'Duration' || col === 'Status') && variant() === 'pending')
+            ? 'lg:table-cell'
+            : ''
+        ]"
       >
         {{ col }}
       </th>
@@ -82,7 +73,7 @@
         <app-icon icon="pi-ethereum" size="1.5" />
       </td>
       }@else {
-      <td class="p-4">{{ leave.employeeName }}</td>
+      <td class="p-4 text-sm lg:text-base">{{ leave.employeeName }}</td>
       }
       <td class="p-4 text-gray-600 text-xs md:text-sm">
         {{ leave.startDate | date : 'dd MMM, yyyy' }}
@@ -90,10 +81,20 @@
       <td class="p-4 text-gray-600 text-xs md:text-sm">
         {{ leave.endDate | date : 'dd MMM, yyyy' }}
       </td>
-      <td class="p-4 text-gray-600 text-xs md:text-sm">
+      <td
+        class="p-4 text-gray-600 text-xs md:text-sm"
+        [ngClass]="{
+          'hidden lg:table-cell': variant() !== 'standard'
+        }"
+      >
         {{ leave.startDate | leaveDuration : leave.endDate }} days
       </td>
-      <td class="capitalize md:p-4">
+      <td
+        class="capitalize p-2 md:p-4"
+        [ngClass]="{
+          'hidden lg:table-cell': variant() === 'pending'
+        }"
+      >
         <p-tag
           [severity]="
             leave.status === 'approved' ? 'success' : leave.status === 'pending' ? 'warn' : 'danger'
@@ -104,7 +105,9 @@
       </td>
       @if(variant() === 'pending'){
       <td class="py-4 px-2">
-        <div class="flex gap-2 justify-center">
+        <app-icon icon="pi-ellipsis-v" size="1" customStyles="!table-cell lg:!hidden" />
+
+        <div class="gap-2 justify-center hidden lg:flex">
           <app-button customStyles="bg-green-500 hover:bg-green-600 active:bg-green-700">
             Approve
           </app-button>

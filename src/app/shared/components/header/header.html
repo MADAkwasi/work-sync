@@ -8,7 +8,7 @@
 
   @if(isAdmin()){
   <div
-    class="flex gap-5 text-center items-center self-center absolute left-[50%] -translate-x-[50%]"
+    class="hidden md:flex gap-5 text-center items-center self-center absolute left-[50%] -translate-x-[50%] text-sm lg:text-base"
   >
     <a
       routerLink="/admin"
@@ -26,7 +26,9 @@
   } @if(!isCurrentRouteRequestFrom()){
   <div class="items-center gap-4 ml-auto hidden md:flex">
     @if(isAdmin()){
-    <app-button (onClick)="isModalOpen.set(true)">Register New User</app-button>
+    <app-button (onClick)="isModalOpen.set(true)" customStyles="!text-sm !md:text-base"
+      >Register New User</app-button
+    >
     } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
     <app-button (onClick)="handleLeaveRequest()">New Request</app-button>
     }
@@ -114,6 +116,9 @@
 <div
   class="fixed z-50 top-[73px] left-0 w-full overflow-hidden bg-white md:hidden flex flex-col p-4 shadow-lg gap-4"
 >
+  <a routerLink="/admin" class="text-blue-500 font-semibold px-4">Home</a>
+  <a routerLink="/admin/calendar" class="text-blue-500 font-semibold px-4">Calendar</a>
+
   @if(isAdmin()){
   <app-button (onClick)="isModalOpen.set(true)" variant="tertiary">Register New User</app-button>
   } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
