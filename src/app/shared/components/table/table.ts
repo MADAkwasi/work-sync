@@ -2,7 +2,7 @@ import { Component, computed, input, signal } from '@angular/core';
 import { EmployeeLeave } from '@shared/models/leave';
 import { LeaveDurationPipe } from '@core/pipes/leave-duration/leave-duration';
 import { Button } from '../button/button';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   adminTableColumns,
   employeeTableColumns,
@@ -16,7 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { date, status } from '@shared/constants/filter';
 import { Pagination } from '../pagination/pagination';
-import { Icon } from "../icon/icon";
+import { Icon } from '../icon/icon';
 
 @Component({
   selector: 'app-table',
@@ -31,8 +31,9 @@ import { Icon } from "../icon/icon";
     InputTextModule,
     SelectModule,
     Pagination,
-    Icon
-],
+    Icon,
+    CommonModule,
+  ],
   templateUrl: './table.html',
 })
 export class Table {

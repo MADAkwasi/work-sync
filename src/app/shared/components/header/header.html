@@ -1,9 +1,9 @@
 <header
   class="w-full flex justify-between items-center px-5 border-b top-0 z-50 bg-white border-b-[#ddd] sticky py-2 shadow-lg"
 >
-  <div class="flex justify-center items-center w-fit -ml-5">
-    <app-icon icon="pi-ethereum" size="2.6" />
-    <h2 class="text-2xl font-bold">WorkSync</h2>
+  <div class="flex justify-center items-center w-fit">
+    <app-icon icon="pi-ethereum" size="2.6" customStyles="!p-0" />
+    <h2 class="text-xl md:text-2xl font-bold">WorkSync</h2>
   </div>
 
   @if(isAdmin()){
@@ -23,14 +23,18 @@
   </div>
   }
 
-  <div class="flex items-center gap-2">
+  <div class="items-center gap-4 ml-auto hidden md:flex">
     @if(isAdmin()){
     <app-button (onClick)="isModalOpen.set(true)">Register New User</app-button>
     } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
     <app-button (onClick)="handleLeaveRequest()">New Request</app-button>
     }
-    <app-icon icon="pi-sign-out" (onClick)="handleLogout()" />
-    <app-avatar userInitials="MD" image="/images/profile-pic.jpg" />
+    <app-icon icon="pi-sign-out" (onClick)="handleLogout()" customStyles="!p-0" />
+  </div>
+
+  <div class="flex items-center gap-4 md:ml-3">
+    <app-avatar userInitials="MD" />
+    <app-icon icon="pi-bars" customStyles="block md:hidden !p-0" (onClick)="handleMenuToggle()" />
   </div>
 </header>
 
@@ -98,3 +102,20 @@
     <app-button (onClick)="handleUserRegistration()">Save</app-button>
   </div>
 </p-dialog>
+
+@if(isMenuOpen()){
+<div
+  class="fixed z-50 top-[73px] left-0 w-full overflow-hidden bg-white md:hidden flex flex-col p-4 shadow-lg gap-4"
+>
+  @if(isAdmin()){
+  <app-button (onClick)="isModalOpen.set(true)" variant="tertiary">Register New User</app-button>
+  } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
+  <app-button (onClick)="handleLeaveRequest()" variant="tertiary">New Request</app-button>
+  }
+
+  <app-button variant="tertiary" customStyles="flex items-center gap-3 !mb-4">
+    <app-icon icon="pi-sign-out" size="1" (onClick)="handleLogout()" customStyles="!p-0" />
+    <p>Log out</p>
+  </app-button>
+</div>
+}
