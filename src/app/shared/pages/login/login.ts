@@ -1,6 +1,5 @@
-import { status } from './../../constants/filter';
 import { endpoints } from '@shared/constants/endpoints';
-import { AuthService } from './../../../core/services/auth/auth';
+import { AuthService } from '@core/services/auth/auth';
 import { Component, inject, signal } from '@angular/core';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';

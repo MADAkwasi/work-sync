@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal, OnInit, effect } from '@angular/core';
 import { Leave } from '@shared/models/leave';
 import { LeaveDurationPipe } from '@core/pipes/leave-duration/leave-duration';
 import { Button } from '../button/button';
@@ -13,9 +13,13 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { date, status } from '@shared/constants/filter';
 import { Pagination } from '../pagination/pagination';
 import { Icon } from '../icon/icon';
+import { LeaveService } from '@core/services/leave/leave';
+import { finalize } from 'rxjs';
+import { ToastService } from '@core/services/toast/toast';
+import { toastNotifications } from '@shared/constants/toast';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-table',
@@ -31,16 +35,20 @@ import { Icon } from '../icon/icon';
     Pagination,
     Icon,
     CommonModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './table.html',
 })
 export class Table {
-  protected readonly statusFilter = status;
-  protected readonly dateFilter = date;
+  private readonly leaveService = inject(LeaveService);
+  private readonly fb = inject(FormBuilder);
+  private readonly toast = inject(ToastService);
+  protected readonly isResponding = signal(false);
   protected readonly pageItems = signal([]);
   protected readonly openLeaveContextId = signal<number | null>(null);
   public readonly variant = input<'standard' | 'pending' | 'view-all'>('standard');
   public readonly data = input.required<Leave[]>();
+  public readonly tableData = signal<Leave[]>([]);
   protected readonly currentPage = signal(1);
   protected readonly amountOnDisplay = computed(() =>
     this.variant() === 'standard' ? 7 : this.variant() === 'pending' ? 3 : 5
@@ -56,10 +64,15 @@ export class Table {
   protected readonly paginatedData = computed(() => {
     const start = (this.currentPage() - 1) * this.amountOnDisplay();
     const end = start + this.amountOnDisplay();
-    return this.data().slice(start, end);
+    return this.tableData().slice(start, end);
   });
 
-  protected readonly totalRecords = computed(() => this.data().length);
+  protected readonly totalRecords = computed(() => this.tableData().length);
+  protected readonly searchForm = this.fb.group({ query: [''] });
+
+  constructor() {
+    effect(() => this.tableData.set(this.data()));
+  }
 
   protected handlePageChange(page: number) {
     this.currentPage.set(page);
@@ -70,7 +83,41 @@ export class Table {
     this.openLeaveContextId.set(this.openLeaveContextId() === leaveIndex ? null : leaveIndex);
   }
 
-  protected handleLeaveRequest(): void {
-    this.openLeaveContextId.set(null);
+  protected searchLeaveByEmployeeName(): void {
+    const query = this.searchForm.controls.query.value ?? '';
+    if (!query) {
+      this.tableData.set(this.data());
+      return;
+    }
+
+    if (query.length > 0 && this.variant() === 'view-all') {
+      const filteredLeaves = this.data().filter((leave) => {
+        const name = leave.user_username ?? '';
+
+        return name.toLowerCase().includes(query.toLowerCase());
+      });
+      this.tableData.set(filteredLeaves);
+    }
+  }
+
+  protected handleLeaveRequest(leaveId: number, action: 'approve' | 'reject'): void {
+    const { operations, status } = toastNotifications;
+    this.isResponding.set(true);
+
+    this.leaveService
+      .handleLeaveRequest(leaveId, action)
+      .pipe(
+        finalize(() => {
+          this.openLeaveContextId.set(null);
+          this.isResponding.set(false);
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.tableData.update((leaves) => leaves.filter((leave) => leave.id !== leaveId));
+          this.toast.show(operations.updateRequest, status.success);
+        },
+        error: ({ error }) => this.toast.show(operations.actionFailed, status.error, error.message),
+      });
   }
 }

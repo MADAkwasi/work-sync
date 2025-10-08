@@ -20,4 +20,12 @@ export class ApiService {
   ): Observable<TResponse> {
     return this.http.post<TResponse>(`${this.baseUrl}/${endpoint}`, body, options);
   }
+
+  public patch<TResponse, TBody = unknown>(
+    endpoint: string,
+    body: TBody,
+    options?: HttpOptions
+  ): Observable<TResponse> {
+    return this.http.patch<TResponse>(`${this.baseUrl}/${endpoint}`, body, options);
+  }
 }

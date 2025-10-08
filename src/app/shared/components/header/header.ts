@@ -31,13 +31,19 @@ import { SelectModule } from 'primeng/select';
 })
 export class Header implements OnInit {
   private readonly router = inject(Router);
+  private readonly endpoint = endpoints.pages;
+  protected readonly userInitials = signal('');
   protected readonly isCurrentRouteRequestFrom = signal(false);
   protected readonly isModalOpen = signal(false);
   protected readonly isAdmin = signal(false);
   protected readonly isMenuOpen = signal(false);
-  private readonly endpoint = endpoints.pages;
 
   ngOnInit(): void {
+    const username = localStorage.getItem('username');
+    const initials = username?.split(' ').map((n) => n[0]);
+
+    if (initials) this.userInitials.set(initials.join('').toUpperCase());
+
     const paths = this.router.url.split('/');
     this.isCurrentRouteRequestFrom.set(paths[2] === 'request-leave');
     this.isAdmin.set(paths[1] === 'admin');

@@ -10,5 +10,8 @@ export const toastNotifications = {
   operations: {
     loginFailed: 'Login Failed',
     fetchFailed: 'Failed to fetch leaves',
+    updateRequest: 'Leave request updated successfully',
+    submitRequest: 'Leave request submitted successfully',
+    actionFailed: 'Action failed',
   },
 };

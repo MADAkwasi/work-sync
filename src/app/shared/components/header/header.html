@@ -42,7 +42,7 @@
     @if(isCurrentRouteRequestFrom()){
     <app-icon icon="pi-sign-out" (onClick)="handleLogout()" customStyles="!p-0" />
     }
-    <app-avatar userInitials="MD" />
+    <app-avatar [userInitials]="userInitials()" />
     @if(!isCurrentRouteRequestFrom()){
     <app-icon
       [icon]="isMenuOpen() ? 'pi-times' : 'pi-bars'"
@@ -124,10 +124,9 @@
   [class.-translate-y-full]="!isMenuOpen()"
   [class.shadow-lg]="isMenuOpen()"
 >
-
-@if(isAdmin()){
-    <a routerLink="/admin" class="text-blue-500 font-semibold px-4">Home</a>
-    <a routerLink="/admin/calendar" class="text-blue-500 font-semibold px-4">Calendar</a>
+  @if(isAdmin()){
+  <a routerLink="/admin" class="text-blue-500 font-semibold px-4">Home</a>
+  <a routerLink="/admin/calendar" class="text-blue-500 font-semibold px-4">Calendar</a>
   <app-button (onClick)="isModalOpen.set(true)" variant="tertiary">Register New User</app-button>
   } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
   <app-button (onClick)="handleLeaveRequest()" variant="tertiary">New Request</app-button>

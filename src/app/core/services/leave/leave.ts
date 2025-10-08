@@ -16,4 +16,8 @@ export class LeaveService {
   public getAllLeaves(): Observable<Leave[]> {
     return this.apiService.get<Leave[]>(this.endpoint.handleLeave);
   }
+
+  public handleLeaveRequest(leaveId: number, action: 'approve' | 'reject'): Observable<void> {
+    return this.apiService.patch<void>(this.endpoint.handleLeaveRequest(leaveId, action), {});
+  }
 }
