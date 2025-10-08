@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { endpoints } from '@shared/constants/endpoints';
 import { ApiService } from './../api/api';
 import { environment } from '@core/environments/environment';
-import { AuthRequest, AuthResponse, JwtPayload } from '@shared/models/auth';
+import { AuthRequest, AuthResponse, JwtPayload, Roles } from '@shared/models/auth';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -58,6 +58,17 @@ export class AuthService {
         localStorage.removeItem('username');
       })
     );
+  }
+
+  public isAuthenticated(): boolean {
+    return !!localStorage.getItem('token');
+  }
+
+  public getUserRole(): Roles | null {
+    const userRole = localStorage.getItem('role');
+    if (!userRole) return null;
+
+    return userRole === Roles.ADMIN ? Roles.ADMIN : Roles.USER;
   }
 
   private decodeJwt(token: string): JwtPayload | null {

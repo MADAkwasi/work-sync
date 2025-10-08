@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { Button } from '../button/button';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { Icon } from "../icon/icon";
+import { Icon } from '../icon/icon';
 import { Toast } from '@shared/models/toast';
 
 @Component({
   selector: 'app-toast',
   standalone: true,
-  imports: [CommonModule, Icon, Button],
+  imports: [CommonModule, Icon],
   templateUrl: './toast.html',
   animations: [
     trigger('slideIn', [

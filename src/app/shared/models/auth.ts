@@ -15,3 +15,8 @@ export interface JwtPayload {
   iat: number;
   exp: number;
 }
+
+export enum Roles {
+  USER = 'User',
+  ADMIN = 'Admin',
+}

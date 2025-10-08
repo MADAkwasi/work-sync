@@ -4,6 +4,7 @@ export const endpoints = {
     requestLeave: '/employee/request-leave',
     employeeDashboard: '/employee',
     adminDashboard: '/admin',
+    unauthorized: '/unauthorized',
   },
   auth: {
     login: 'auth/login',
