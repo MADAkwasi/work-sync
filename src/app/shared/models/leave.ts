@@ -1,7 +1,7 @@
 export interface Leave {
   id: number;
   user_id: number;
-  employee_name?: string;
+  user_username?: string;
   reason: string;
   start_date: string;
   end_date: string;
