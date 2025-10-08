@@ -7,7 +7,9 @@
   </div>
 
   @if(isAdmin()){
-  <div class="flex gap-5 text-center items-center self-center">
+  <div
+    class="flex gap-5 text-center items-center self-center absolute left-[50%] -translate-x-[50%]"
+  >
     <a
       routerLink="/admin"
       routerLinkActive="text-blue-500 font-semibold"
@@ -21,8 +23,7 @@
       >Calendar</a
     >
   </div>
-  }
-
+  } @if(!isCurrentRouteRequestFrom()){
   <div class="items-center gap-4 ml-auto hidden md:flex">
     @if(isAdmin()){
     <app-button (onClick)="isModalOpen.set(true)">Register New User</app-button>
@@ -31,10 +32,16 @@
     }
     <app-icon icon="pi-sign-out" (onClick)="handleLogout()" customStyles="!p-0" />
   </div>
+  }
 
   <div class="flex items-center gap-4 md:ml-3">
+    @if(isCurrentRouteRequestFrom()){
+    <app-icon icon="pi-sign-out" (onClick)="handleLogout()" customStyles="!p-0" />
+    }
     <app-avatar userInitials="MD" />
+    @if(!isCurrentRouteRequestFrom()){
     <app-icon icon="pi-bars" customStyles="block md:hidden !p-0" (onClick)="handleMenuToggle()" />
+    }
   </div>
 </header>
 

@@ -45,10 +45,12 @@ export class Header implements OnInit {
 
   protected handleLeaveRequest(): void {
     this.router.navigate([this.endpoint.requestLeave]);
+    this.isMenuOpen.set(false);
   }
 
   protected handleLogout(): void {
     this.router.navigate([this.endpoint.loginPage]);
+    this.isMenuOpen.set(false);
   }
 
   protected handleModalCancel(): void {
