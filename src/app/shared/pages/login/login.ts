@@ -7,7 +7,7 @@ import { PasswordModule } from 'primeng/password';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorMessagePipe } from '@core/pipes/error-message/error-message';
 import { Button } from '@shared/components/button/button';
-
+import { Icon } from '@shared/components/icon/icon';
 
 @Component({
   selector: 'app-login',
@@ -20,14 +20,15 @@ import { Button } from '@shared/components/button/button';
     ReactiveFormsModule,
     ErrorMessagePipe,
     Button,
+    Icon,
   ],
   templateUrl: './login.html',
 })
 export class Login {
   private readonly fb = inject(FormBuilder);
   protected readonly loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    username: ['', [Validators.required, Validators.minLength(3)]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   protected onSubmit(): void {
