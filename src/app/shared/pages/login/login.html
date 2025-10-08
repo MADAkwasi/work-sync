@@ -23,7 +23,7 @@
               type="username"
               class="!bg-white !text-[#333] focus:!border-black"
               fluid
-              [invalid]="loginForm.controls.username.invalid && loginForm.touched"
+              [invalid]="loginForm.controls.username.invalid && loginForm.controls.username.touched"
             />
           </p-iconfield>
           <label class="!bg-white !text-[#ccc]">Username</label>
@@ -44,7 +44,7 @@
               inputId="password"
               formControlName="password"
               inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
-              [invalid]="loginForm.controls.password.invalid && loginForm.touched"
+              [invalid]="loginForm.controls.password.invalid && loginForm.controls.password.touched"
               fluid
             />
           </p-iconfield>
@@ -56,7 +56,9 @@
       </div>
 
       <app-button [disabled]="loginForm.invalid" type="submit" [fullWidth]="true" class="mt-5">
-        Submit
+        @if(isLoggingIn()){
+        <app-loader />
+        }@else { Submit }
       </app-button>
       <p class="text-xs md:text-sm text-center">
         Don't have an account?

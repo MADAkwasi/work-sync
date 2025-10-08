@@ -3,8 +3,14 @@ export const endpoints = {
     loginPage: '/login',
     requestLeave: '/employee/request-leave',
     employeeDashboard: '/employee',
+    adminDashboard: '/admin',
   },
   auth: {
-    login: '/auth/login',
+    login: 'auth/login',
+    register: 'auth/register',
+  },
+  leave: {
+    getLeave: 'leaves/mine',
+    handleLeave: 'leaves',
   },
 };

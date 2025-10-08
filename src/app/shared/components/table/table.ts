@@ -1,5 +1,5 @@
 import { Component, computed, input, signal } from '@angular/core';
-import { EmployeeLeave } from '@shared/models/leave';
+import { Leave } from '@shared/models/leave';
 import { LeaveDurationPipe } from '@core/pipes/leave-duration/leave-duration';
 import { Button } from '../button/button';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -40,7 +40,7 @@ export class Table {
   protected readonly pageItems = signal([]);
   protected readonly openLeaveContextId = signal<number | null>(null);
   public readonly variant = input<'standard' | 'pending' | 'view-all'>('standard');
-  public readonly data = input.required<EmployeeLeave[]>();
+  public readonly data = input.required<Leave[]>();
   protected readonly currentPage = signal(1);
   protected readonly amountOnDisplay = computed(() =>
     this.variant() === 'standard' ? 7 : this.variant() === 'pending' ? 3 : 5

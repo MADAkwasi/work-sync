@@ -7,3 +7,11 @@ export interface AuthRequest {
   username: string;
   password: string;
 }
+
+export interface JwtPayload {
+  id: number;
+  username: string;
+  role: string;
+  iat: number;
+  exp: number;
+}

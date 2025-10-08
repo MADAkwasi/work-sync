@@ -1,30 +1,17 @@
-export interface EmployeeLeave {
+export interface Leave {
   id: number;
-  employeeId: string;
-  employeeName: string;
-  department: string;
-  leaveType: LeaveType;
-  startDate: string;
-  endDate: string;
-  status: Status;
+  user_id: number;
+  employee_name?: string;
   reason: string;
-  daysRequested: number;
-  approver: string;
-  appliedOn: string;
+  start_date: string;
+  end_date: string;
+  status: LeaveStatus;
+  rejection_reason: string | null;
 }
 
-export enum LeaveType {
-  ANNUAL = 'Annual',
-  SICK = 'Sick',
-  CASUAL = 'Casual',
-  MATERNITY = 'Maternity',
-  PATERNITY = 'Paternity',
-  STUDY = 'Study',
-}
-
-export enum Status {
-  PENDING = 'pending',
-  APPROVED = 'approved',
-  REJECTED = 'rejected',
-  CANCELLED = 'cancelled',
+export enum LeaveStatus {
+  PENDING = 'Pending',
+  APPROVED = 'Approved',
+  REJECTED = 'Rejected',
+  CANCELLED = 'Cancelled',
 }

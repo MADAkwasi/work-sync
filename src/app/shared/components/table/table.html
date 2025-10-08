@@ -73,13 +73,13 @@
         <app-icon icon="pi-ethereum" size="1.5" />
       </td>
       }@else {
-      <td class="p-4 text-sm lg:text-base">{{ leave.employeeName }}</td>
+      <td class="p-4 text-sm lg:text-base">{{ leave.employee_name }}</td>
       }
       <td class="p-4 text-gray-600 text-xs md:text-sm">
-        {{ leave.startDate | date : 'dd MMM, yyyy' }}
+        {{ leave.start_date | date : 'dd MMM, yyyy' }}
       </td>
       <td class="p-4 text-gray-600 text-xs md:text-sm">
-        {{ leave.endDate | date : 'dd MMM, yyyy' }}
+        {{ leave.end_date | date : 'dd MMM, yyyy' }}
       </td>
       <td
         class="p-4 text-gray-600 text-xs md:text-sm"
@@ -87,7 +87,7 @@
           'hidden lg:table-cell': variant() !== 'standard'
         }"
       >
-        {{ leave.startDate | leaveDuration : leave.endDate }} days
+        {{ leave.start_date | leaveDuration : leave.end_date }} days
       </td>
       <td
         class="capitalize p-2 md:p-4"
@@ -97,7 +97,7 @@
       >
         <p-tag
           [severity]="
-            leave.status === 'approved' ? 'success' : leave.status === 'pending' ? 'warn' : 'danger'
+            leave.status === 'Approved' ? 'success' : leave.status === 'Pending' ? 'warn' : 'danger'
           "
           [value]="leave.status"
           class="!text-xs md:!text-sm"
@@ -117,7 +117,7 @@
           class="absolute top-full -left-1/2 text-xs flex flex-col bg-white w-32 shadow-xl rounded-md z-50"
         >
           <span class="py-4 px-3 border-b border-gray-300"
-            >Duration: {{ leave.startDate | leaveDuration : leave.endDate }} days</span
+            >Duration: {{ leave.start_date | leaveDuration : leave.end_date }} days</span
           >
 
           <span class="border-b border-gray-300 text-green-500">
