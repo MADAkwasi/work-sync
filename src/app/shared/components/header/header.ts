@@ -11,6 +11,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { SelectModule } from 'primeng/select';
+import { AuthService } from '@core/services/auth/auth';
 
 @Component({
   selector: 'app-header',
@@ -31,6 +32,7 @@ import { SelectModule } from 'primeng/select';
 })
 export class Header implements OnInit {
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
   private readonly endpoint = endpoints.pages;
   protected readonly userInitials = signal('');
   protected readonly isCurrentRouteRequestFrom = signal(false);
@@ -55,8 +57,12 @@ export class Header implements OnInit {
   }
 
   protected handleLogout(): void {
-    this.router.navigate([this.endpoint.loginPage]);
-    this.isMenuOpen.set(false);
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate([this.endpoint.loginPage]);
+        this.isMenuOpen.set(false);
+      },
+    });
   }
 
   protected handleModalCancel(): void {

@@ -132,8 +132,12 @@
   <app-button (onClick)="handleLeaveRequest()" variant="tertiary">New Request</app-button>
   }
 
-  <app-button variant="tertiary" customStyles="flex items-center gap-3 !mb-4 !-mt-2">
-    <app-icon icon="pi-sign-out" size="1" (onClick)="handleLogout()" customStyles="!p-0" />
+  <app-button
+    variant="tertiary"
+    customStyles="flex items-center gap-3 !mb-4 !-mt-2"
+    (onClick)="handleLogout()"
+  >
+    <app-icon icon="pi-sign-out" size="1" customStyles="!p-0" />
     <p>Log out</p>
   </app-button>
 </div>

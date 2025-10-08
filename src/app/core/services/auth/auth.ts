@@ -30,7 +30,7 @@ export class AuthService {
     );
   }
 
-    public register(credentials: AuthRequest): Observable<AuthResponse> {
+  public register(credentials: AuthRequest): Observable<AuthResponse> {
     return this.apiService.post<AuthResponse>(this.endpoint.register, credentials).pipe(
       tap((res) => {
         if (res) {
@@ -43,6 +43,19 @@ export class AuthService {
             localStorage.setItem('username', payload.username);
           }
         }
+      })
+    );
+  }
+
+  public logout(): Observable<void> {
+    const key = localStorage.getItem('apiKey');
+
+    return this.apiService.post<void>(this.endpoint.logout, { key }).pipe(
+      tap(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('apiKey');
+        localStorage.removeItem('role');
+        localStorage.removeItem('username');
       })
     );
   }
