@@ -101,7 +101,7 @@ export class Calendar {
   }
 
   protected getDayClasses(day: CalendarDay): string {
-    const baseClasses = 'p-2 h-32 border border-[#407BFF] ';
+    const baseClasses = 'border border-[#407BFF] ';
     if (!day.isCurrentMonth) {
       return baseClasses + 'bg-background-light text-gray-400 dark:text-gray-600';
     }
@@ -118,9 +118,9 @@ export class Calendar {
 
   getEventClasses(type: string): string {
     const classes: { [key: string]: string } = {
-      pending: 'bg-gray-200 border-2 border-dashed border-gray-400',
-      approved: 'bg-green-500/20',
-      rejected: 'bg-red-500/20',
+      pending: 'md:bg-gray-200 md:border-2 border-dashed border-gray-400',
+      approved: 'md:bg-green-500/20',
+      rejected: 'md:bg-red-500/20',
     };
     return `flex items-center gap-2 p-1 rounded-lg ${classes[type] || 'bg-gray-200'}`;
   }
@@ -131,6 +131,6 @@ export class Calendar {
       approved: 'bg-green-500',
       rejected: 'bg-red-500',
     };
-    return `w-4 h-4 rounded-full ${classes[type] || 'bg-gray-500'}`;
+    return `${classes[type] || 'bg-gray-500'}`;
   }
 }

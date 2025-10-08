@@ -3,37 +3,36 @@
 <main class="p-6 space-y-6">
   <div class="flex items-center gap-4 justify-center">
     <app-icon icon="pi-angle-left" (onClick)="previousMonth()" />
-    <h2 class="text-2xl font-bold">{{ currentMonth() }} {{ currentYear() }}</h2>
+    <h2 class="text-xl md:text-2xl font-bold">{{ currentMonth() }} {{ currentYear() }}</h2>
     <app-icon icon="pi-angle-right" (onClick)="nextMonth()" />
   </div>
 
   <div
     class="mt-6 grid grid-cols-7 gap-px bg-[#407BFF] border border-[#407BFF] rounded-xl overflow-hidden"
   >
-    <!-- Weekday headers -->
     @for(day of weekDays; track $index){
     <div class="text-center py-3 bg-[#407BFF] font-bold text-sm">
       {{ day }}
     </div>
-    }
-
-    <!-- Calendar days -->
-    @for(day of calendarDays(); track day.date.getTime()) {
+    } @for(day of calendarDays(); track day.date.getTime()) {
     <div
-      class="p-2 h-32 2xl:h-40 border border-[#407BFF]"
+      class="p-1 md:p-2 h-16 md:h-28 lg:h-32 2xl:h-40 border border-[#407BFF]"
       [class]="getDayClasses(day)"
       [class.bg-[#a3bffa]]="!day.isCurrentMonth"
     >
-      <div class="font-bold" [class.text-gray-600]="!day.isCurrentMonth">
+      <div class="font-bold text-xs md:text-base" [class.text-gray-600]="!day.isCurrentMonth">
         {{ day.date.getDate() }}
       </div>
 
       @if(day.events && day.events.length > 0) {
-      <div class="mt-1 space-y-1">
+      <div class="md:mt-1 space-y-1 flex flex-wrap md:block">
         @for(event of day.events; track event.name) {
         <div class="flex items-center gap-2 p-1 rounded-lg" [class]="getEventClasses(event.type)">
-          <div class="w-4 h-4 rounded-full" [class]="getEventDotClass(event.type)"></div>
-          <span class="text-xs font-medium">{{ event.name }}</span>
+          <div
+            class="w-2 md:w-4 h-2 md:h-4 rounded-full"
+            [class]="getEventDotClass(event.type)"
+          ></div>
+          <span class="text-xs font-medium hidden md:block">{{ event.name }}</span>
         </div>
         }
       </div>
@@ -44,7 +43,7 @@
 
   <div class="mt-8">
     <h3 class="text-lg font-bold">Legend</h3>
-    <div class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-sm">
+    <div class="mt-4 grid grid-cols-3 gap-4 text-sm">
       <div class="flex items-center gap-2">
         <div class="w-4 h-4 rounded-full border-2 border-dashed border-gray-400"></div>
         <span>Pending</span>

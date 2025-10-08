@@ -1,26 +1,19 @@
-<main class="h-screen w-screen p-3 flex overflow-hidden">
-  <div
-    class="w-1/2 flex flex-col justify-between items-center h-full bg-[#c8d8f9] rounded-2xl px-10 pt-10"
-  >
-    <div class="text-center flex flex-col gap-2">
-      <h1 class="text-4xl text-[#407BFF] font-semibold">Leave Management</h1>
-      <p class="text-lg">
-        Empowering teams with a seamless data-driven way to request, track and manage time off
-      </p>
-    </div>
-
-    <div class="h-4/6 w-[90%]">
-      <img src="/images/auth-bg.png" alt="calendar" class="h-full w-full" />
-    </div>
-  </div>
-  <div class="w-1/2 justify-center items-center flex flex-col">
-    <form class="w-3/4 flex flex-col gap-5" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <h2 class="text-center text-3xl text-[#407BFF] mb-4 font-semibold">Login</h2>
-
+<main class="h-screen w-screen p-3 flex overflow-hidden bg-white">
+  <div class="w-full justify-center items-center flex flex-col">
+    <form
+      class="w-full md:w-3/4 lg:w-2/5 flex flex-col gap-5 mb-6"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="flex flex-col items-center">
+        <app-icon icon="pi-ethereum" size="4" />
+        <h1 class="text-center text-4xl text-shadow-lg mb-4 font-semibold">WorkSync</h1>
+        <p class="text-center text-lg mb-4 font-semibold">Welcome Back</p>
+      </div>
       <div>
         <p-floatlabel variant="on">
           <p-iconfield>
-            <p-inputicon class="pi pi-envelope" />
+            <p-inputicon class="pi pi-user" />
             <input
               pInputText
               autocomplete="off"
@@ -51,6 +44,7 @@
               inputId="password"
               formControlName="password"
               inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
+              [invalid]="loginForm.controls.password.invalid && loginForm.touched"
               fluid
             />
           </p-iconfield>
@@ -64,6 +58,10 @@
       <app-button [disabled]="loginForm.invalid" type="submit" [fullWidth]="true" class="mt-5">
         Submit
       </app-button>
+      <p class="text-xs md:text-sm text-center">
+        Don't have an account?
+        <a routerLink="/register" class="text-blue-500 font-semibold">Register</a>
+      </p>
     </form>
   </div>
 </main>
