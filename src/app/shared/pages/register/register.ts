@@ -9,9 +9,10 @@ import { ErrorMessagePipe } from '@core/pipes/error-message/error-message';
 import { Button } from '@shared/components/button/button';
 import { Icon } from '@shared/components/icon/icon';
 import { RouterLink } from '@angular/router';
+import { passwordsMatchValidator } from '@shared/validators/validator';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   imports: [
     IconFieldModule,
     InputIconModule,
@@ -24,17 +25,21 @@ import { RouterLink } from '@angular/router';
     Icon,
     RouterLink,
   ],
-  templateUrl: './login.html',
+  templateUrl: './register.html',
 })
-export class Login {
+export class Register {
   private readonly fb = inject(FormBuilder);
-  protected readonly loginForm = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-  });
+  protected readonly registrationForm = this.fb.group(
+    {
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+    },
+    { validators: passwordsMatchValidator }
+  );
 
   protected onSubmit(): void {
-    if (this.loginForm.invalid) return;
-    console.log(this.loginForm.value);
+    // if (this.registrationForm.invalid) return;
+    console.log(this.registrationForm.controls.confirmPassword.invalid);
   }
 }

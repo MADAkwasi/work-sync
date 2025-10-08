@@ -82,6 +82,16 @@
   </div>
 
   <div class="mb-4">
+    <p-select
+      [options]="['Admin', 'User']"
+      placeholder="Role"
+      size="large"
+      class="!bg-white !text-[#333] active:!border-black"
+      fluid
+    />
+  </div>
+
+  <div class="mb-4">
     <p-floatlabel variant="on">
       <p-iconfield>
         <p-inputicon class="pi pi-lock" />
@@ -102,16 +112,6 @@
     } -->
   </div>
 
-  <div class="mb-4">
-    <p-select
-      [options]="['Admin', 'User']"
-      placeholder="Role"
-      size="large"
-      class="!bg-white !text-[#333] active:!border-black"
-      fluid
-    />
-  </div>
-
   <div class="flex justify-end gap-2">
     <app-button variant="secondary" (onClick)="handleModalCancel()">Cancel</app-button>
     <app-button (onClick)="handleUserRegistration()">Save</app-button>
@@ -124,10 +124,10 @@
   [class.-translate-y-full]="!isMenuOpen()"
   [class.shadow-lg]="isMenuOpen()"
 >
-  <a routerLink="/admin" class="text-blue-500 font-semibold px-4">Home</a>
-  <a routerLink="/admin/calendar" class="text-blue-500 font-semibold px-4">Calendar</a>
 
-  @if(isAdmin()){
+@if(isAdmin()){
+    <a routerLink="/admin" class="text-blue-500 font-semibold px-4">Home</a>
+    <a routerLink="/admin/calendar" class="text-blue-500 font-semibold px-4">Calendar</a>
   <app-button (onClick)="isModalOpen.set(true)" variant="tertiary">Register New User</app-button>
   } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
   <app-button (onClick)="handleLeaveRequest()" variant="tertiary">New Request</app-button>

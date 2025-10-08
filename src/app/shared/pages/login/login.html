@@ -13,7 +13,7 @@
       <div>
         <p-floatlabel variant="on">
           <p-iconfield>
-            <p-inputicon class="pi pi-envelope" />
+            <p-inputicon class="pi pi-user" />
             <input
               pInputText
               autocomplete="off"
@@ -44,6 +44,7 @@
               inputId="password"
               formControlName="password"
               inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
+              [invalid]="loginForm.controls.password.invalid && loginForm.touched"
               fluid
             />
           </p-iconfield>
@@ -58,7 +59,8 @@
         Submit
       </app-button>
       <p class="text-xs md:text-sm text-center">
-        Don't have an account? <a class="text-blue-500 font-semibold">Register</a>
+        Don't have an account?
+        <a routerLink="/register" class="text-blue-500 font-semibold">Register</a>
       </p>
     </form>
   </div>

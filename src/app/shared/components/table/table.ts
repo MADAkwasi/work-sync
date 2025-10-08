@@ -13,7 +13,6 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
-import { SelectModule } from 'primeng/select';
 import { date, status } from '@shared/constants/filter';
 import { Pagination } from '../pagination/pagination';
 import { Icon } from '../icon/icon';
@@ -29,7 +28,6 @@ import { Icon } from '../icon/icon';
     InputIconModule,
     FloatLabelModule,
     InputTextModule,
-    SelectModule,
     Pagination,
     Icon,
     CommonModule,

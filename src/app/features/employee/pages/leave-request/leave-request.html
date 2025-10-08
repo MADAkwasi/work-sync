@@ -26,6 +26,7 @@
             iconDisplay="input"
             inputStyleClass="!bg-white !text-[#333] focus:!border-black"
             formControlName="startDate"
+            [minDate]="minDate"
             baseZIndex="50"
             fluid
           />
@@ -38,6 +39,7 @@
             iconDisplay="input"
             inputStyleClass="!bg-white !text-[#333] focus:!border-black"
             formControlName="endDate"
+            [minDate]="minDate"
             baseZIndex="50"
             fluid
           />

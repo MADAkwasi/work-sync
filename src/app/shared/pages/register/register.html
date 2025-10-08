@@ -1,0 +1,103 @@
+<main class="h-screen w-screen p-3 flex overflow-hidden bg-white">
+  <div class="w-full justify-center items-center flex flex-col">
+    <form
+      class="w-full md:w-3/4 lg:w-2/5 flex flex-col gap-5 mb-6"
+      [formGroup]="registrationForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="flex flex-col items-center">
+        <div class="flex items-center my-2">
+          <app-icon icon="pi-ethereum" size="3" customStyles="!p-0" />
+          <h2 class="text-2xl font-semibold">WorkSync</h2>
+        </div>
+        <h1 class="text-center text-3xl md:text-4xl text-shadow-lg mb-4 font-semibold">
+          Create your account
+        </h1>
+        <p class="text-center text-base md:text-lg mb-4 font-semibold">
+          Streamline your leave management process
+        </p>
+      </div>
+      <div>
+        <p-floatlabel variant="on">
+          <p-iconfield>
+            <p-inputicon class="pi pi-user" />
+            <input
+              pInputText
+              autocomplete="off"
+              pSize="large"
+              inputId="username"
+              formControlName="username"
+              type="username"
+              class="!bg-white !text-[#333] focus:!border-black"
+              fluid
+              [invalid]="registrationForm.controls['username'].invalid && registrationForm.touched"
+            />
+          </p-iconfield>
+          <label class="!bg-white !text-[#ccc]">Username</label>
+        </p-floatlabel>
+        @if (registrationForm | errorMessage: 'username'; as error) {
+        <p class="text-sm text-red-500">{{ error }}</p>
+        }
+      </div>
+
+      <div>
+        <p-floatlabel variant="on">
+          <p-iconfield>
+            <p-inputicon class="pi pi-lock" />
+            <p-password
+              [toggleMask]="true"
+              [feedback]="false"
+              size="large"
+              inputId="password"
+              formControlName="password"
+              inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
+              [invalid]="registrationForm.controls['password'].invalid && registrationForm.touched"
+              fluid
+            />
+          </p-iconfield>
+          <label class="!text-[#ccc] !bg-white">Password</label>
+        </p-floatlabel>
+        @if (registrationForm | errorMessage: 'password'; as error) {
+        <p class="text-sm text-red-500">{{ error }}</p>
+        }
+      </div>
+
+      <div>
+        <p-floatlabel variant="on">
+          <p-iconfield>
+            <p-inputicon class="pi pi-lock" />
+            <p-password
+              [toggleMask]="true"
+              [feedback]="false"
+              size="large"
+              inputId="confirmPassword"
+              formControlName="confirmPassword"
+              inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
+              [invalid]="
+                registrationForm.controls['confirmPassword'].invalid && registrationForm.touched
+              "
+              fluid
+            />
+          </p-iconfield>
+          <label class="!text-[#ccc] !bg-white">Confirm Password</label>
+        </p-floatlabel>
+        @if (registrationForm | errorMessage: 'confirmPassword'; as error) {
+        <p class="text-sm text-red-500">{{ error }}</p>
+        }
+      </div>
+
+      <app-button
+        [disabled]="registrationForm.invalid"
+        type="submit"
+        [fullWidth]="true"
+        class="mt-5"
+      >
+        Submit
+      </app-button>
+      <p class="text-xs md:text-sm text-center">
+        Already have an account?
+        <a routerLink="/login" class="text-blue-500 font-semibold">Login</a>
+      </p>
+    </form>
+  </div>
+</main>

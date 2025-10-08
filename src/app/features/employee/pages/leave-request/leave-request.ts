@@ -28,6 +28,7 @@ export class LeaveRequest {
   private readonly fb = inject(FormBuilder);
   private readonly leaveDurationPipe = new LeaveDurationPipe();
   private readonly endpoint = endpoints.pages;
+  protected readonly minDate = new Date();
   protected readonly requestForm = this.fb.group({
     endDate: ['', [Validators.required]],
     startDate: ['', [Validators.required]],

@@ -16,8 +16,11 @@ export class ErrorMessagePipe implements PipeTransform {
     if (!errors) return;
 
     if (errors['required']) return errorMessages.required;
-    if (errors['minlength'] && field === 'password') return errorMessages.minLength(6);
+    if (errors['minlength'] && (field === 'password' || field === 'confirmPassword'))
+      return errorMessages.minLength(6);
     if (errors['minlength']) return errorMessages.minLength(3);
+    if (field === 'confirmPassword' && form.errors?.['passwordsMismatch'])
+      return errorMessages.passwordMismatch;
 
     return undefined;
   }
