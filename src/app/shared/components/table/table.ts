@@ -53,6 +53,13 @@ export class Table {
   protected readonly amountOnDisplay = computed(() =>
     this.variant() === 'standard' ? 7 : this.variant() === 'pending' ? 3 : 5
   );
+  protected readonly skeletonTableRows = computed(() =>
+    this.variant() === 'standard'
+      ? Array.from({ length: 7 })
+      : this.variant() === 'pending'
+      ? Array.from({ length: 3 })
+      : Array.from({ length: 5 })
+  );
   protected readonly headColumns = computed(() =>
     this.variant() === 'standard'
       ? employeeTableColumns
@@ -69,6 +76,7 @@ export class Table {
 
   protected readonly totalRecords = computed(() => this.tableData().length);
   protected readonly searchForm = this.fb.group({ query: [''] });
+  public readonly isLoadingData = input(false);
 
   constructor() {
     effect(() => this.tableData.set(this.data()));
