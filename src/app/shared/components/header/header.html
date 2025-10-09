@@ -28,7 +28,7 @@
   } @if(!isCurrentRouteRequestFrom()){
   <div class="items-center gap-4 ml-auto hidden md:flex">
     @if(isAdmin()){
-    <app-button (onClick)="isModalOpen.set(true)" customStyles="!text-sm !md:text-base"
+    <app-button (onClick)="handleModalOpen()" customStyles="!text-sm !md:text-base"
       >Register New User</app-button
     >
     } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
@@ -58,64 +58,81 @@
   [draggable]="false"
   [modal]="true"
   [visible]="isModalOpen()"
-  (visibleChange)="isModalOpen.set(false)"
+  (visibleChange)="handleModalOpen()"
   styleClass="!bg-white !text-[#333] !flex !flex-col "
   [style]="{ width: '25rem' }"
 >
-  <div class="my-4">
-    <p-floatlabel variant="on">
-      <p-iconfield>
-        <p-inputicon class="pi pi-user" />
-        <input
-          pInputText
-          autocomplete="off"
-          pSize="large"
-          class="!bg-white !text-[#333] focus:!border-black"
-          fluid
-        />
-      </p-iconfield>
-      <label class="!bg-white !text-[#bbb]">Username</label>
+  <form [formGroup]="userForm" (ngSubmit)="handleUserRegistration()">
+    <div class="my-4">
+      <p-floatlabel variant="on">
+        <p-iconfield>
+          <p-inputicon class="pi pi-user" />
+          <input
+            pInputText
+            autocomplete="off"
+            formControlName="username"
+            pSize="large"
+            class="!bg-white !text-[#333] focus:!border-black"
+            fluid
+          />
+        </p-iconfield>
+        <label class="!bg-white !text-[#bbb]">Username</label>
+      </p-floatlabel>
+      @if (userForm | errorMessage: 'username'; as error) {
+      <p class="text-sm text-red-500">{{ error }}</p>
+      }
+    </div>
+
+    <p-floatlabel class="mb-4" variant="on">
+      <p-select
+        [options]="options"
+        optionLabel="role"
+        optionValue="role"
+        formControlName="role"
+        size="large"
+        class="!bg-white text-black active:!border-black has-[input:not(:placeholder-shown)]:!border-black"
+        fluid
+      >
+        <ng-template pTemplate="selectedItem" let-options>
+          <div class="text-[#333]">
+            <span>{{ options.role }}</span>
+          </div>
+        </ng-template>
+      </p-select>
+      <label class="!bg-white !text-[#bbb]">Role</label>
     </p-floatlabel>
-    <!-- @if (loginForm | errorMessage: 'email'; as error) {
-    <p class="text-sm text-red-500">{{ error }}</p>
-    } -->
-  </div>
 
-  <div class="mb-4">
-    <p-select
-      [options]="['Admin', 'User']"
-      placeholder="Role"
-      size="large"
-      class="!bg-white !text-[#333] active:!border-black"
-      fluid
-    />
-  </div>
+    <div class="mb-4">
+      <p-floatlabel variant="on">
+        <p-iconfield>
+          <p-inputicon class="pi pi-lock" />
+          <p-password
+            [toggleMask]="true"
+            [feedback]="false"
+            size="large"
+            inputId="password"
+            formControlName="password"
+            inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
+            fluid
+          />
+        </p-iconfield>
+        <label class="!text-[#bbb] !bg-white">Password</label>
+      </p-floatlabel>
+      @if (userForm | errorMessage: 'password'; as error) {
+      <p class="text-sm text-red-500">{{ error }}</p>
+      }
+    </div>
 
-  <div class="mb-4">
-    <p-floatlabel variant="on">
-      <p-iconfield>
-        <p-inputicon class="pi pi-lock" />
-        <p-password
-          [toggleMask]="true"
-          [feedback]="false"
-          size="large"
-          inputId="password"
-          formControlName="password"
-          inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
-          fluid
-        />
-      </p-iconfield>
-      <label class="!text-[#bbb] !bg-white">Password</label>
-    </p-floatlabel>
-    <!-- @if (loginForm | errorMessage: 'password'; as error) {
-    <p class="text-sm text-red-500">{{ error }}</p>
-    } -->
-  </div>
-
-  <div class="flex justify-end gap-2">
-    <app-button variant="secondary" (onClick)="handleModalCancel()">Cancel</app-button>
-    <app-button (onClick)="handleUserRegistration()">Save</app-button>
-  </div>
+    <div class="flex justify-end gap-2">
+      <app-button
+        variant="secondary"
+        (onClick)="handleModalCancel()"
+        [disabled]="userForm.untouched"
+        >Cancel</app-button
+      >
+      <app-button type="submit" [disabled]="userForm.invalid">Save</app-button>
+    </div>
+  </form>
 </p-dialog>
 
 <div
@@ -127,7 +144,7 @@
   @if(isAdmin()){
   <a routerLink="/admin" class="text-blue-500 font-semibold px-4">Home</a>
   <a routerLink="/admin/calendar" class="text-blue-500 font-semibold px-4">Calendar</a>
-  <app-button (onClick)="isModalOpen.set(true)" variant="tertiary">Register New User</app-button>
+  <app-button (onClick)="handleModalOpen()" variant="tertiary">Register New User</app-button>
   } @else if(!isAdmin() && !isCurrentRouteRequestFrom()){
   <app-button (onClick)="handleLeaveRequest()" variant="tertiary">New Request</app-button>
   }

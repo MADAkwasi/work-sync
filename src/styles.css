@@ -12,3 +12,15 @@ body {
   background-color: #ccc;
   color: #222;
 }
+
+/* Example for p-dropdown */
+.p-dropdown .p-dropdown-label {
+  color: green;
+  font-size: 160px;
+}
+
+/* Example for p-selectButton */
+.p-selectbutton .p-highlight {
+  background-color: #ffcc00;
+  color: #333;
+}

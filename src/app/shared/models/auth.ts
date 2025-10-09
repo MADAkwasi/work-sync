@@ -20,3 +20,9 @@ export enum Roles {
   USER = 'User',
   ADMIN = 'Admin',
 }
+
+export interface UserRequest {
+  username: string;
+  role: Roles;
+  password: string;
+}

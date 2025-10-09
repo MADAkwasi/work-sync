@@ -16,4 +16,7 @@ export const endpoints = {
     handleLeave: 'leaves',
     handleLeaveRequest: (id: number, action: 'approve' | 'reject') => `leaves/${id}/${action}`,
   },
+  users: {
+    handleUsers: 'users',
+  },
 };
