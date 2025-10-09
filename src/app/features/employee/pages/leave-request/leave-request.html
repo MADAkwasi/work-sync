@@ -77,10 +77,15 @@
     </div>
 
     <div class="justify-end flex gap-3">
-      <app-button variant="secondary" [disabled]="requestForm.untouched" (onClick)="onCancel()"
+      <app-button
+        variant="secondary"
+        [disabled]="requestForm.untouched || isSubmitting()"
+        (onClick)="requestForm.reset()"
         >Cancel</app-button
       >
-      <app-button type="submit" [disabled]="requestForm.invalid">Submit Request</app-button>
+      <app-button type="submit" [disabled]="requestForm.invalid || isSubmitting()"
+        >Submit Request</app-button
+      >
     </div>
   </form>
 </main>

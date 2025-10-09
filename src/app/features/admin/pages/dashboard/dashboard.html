@@ -8,7 +8,7 @@
   <section class="flex flex-col gap-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-between">
       <p-card subheader="Pending Approvals" class="!bg-white">
-        <p class="text-[#222] text-2xl md:text-3xl font-bold">N/A</p>
+        <p class="text-[#222] text-2xl md:text-3xl font-bold">{{ pendingRequests().length }}</p>
       </p-card>
       <p-card subheader="Absences Today" class="!bg-white">
         <p class="text-[#222] text-2xl md:text-3xl font-bold">

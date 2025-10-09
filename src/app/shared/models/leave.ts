@@ -15,3 +15,9 @@ export enum LeaveStatus {
   REJECTED = 'Rejected',
   CANCELLED = 'Cancelled',
 }
+
+export interface LeaveRequest {
+  reason: string;
+  startDate: string;
+  endDate: string;
+}
