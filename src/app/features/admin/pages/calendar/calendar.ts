@@ -1,8 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { LeaveStore } from '@core/store/leave.store';
 import { Header } from '@shared/components/header/header';
 import { Icon } from '@shared/components/icon/icon';
 import { colors, days } from '@shared/constants/calendar';
 import { CalendarDay, CalendarEvent } from '@shared/models/calendar';
+import { LeaveStatus } from '@shared/models/leave';
 
 @Component({
   selector: 'app-calendar',
@@ -10,9 +12,15 @@ import { CalendarDay, CalendarEvent } from '@shared/models/calendar';
   imports: [Header, Icon],
 })
 export class Calendar {
+  private readonly store = inject(LeaveStore);
   private readonly currentDate = signal<Date>(new Date());
+  protected readonly leaves = this.store.leaves();
   protected readonly weekDays = days;
   protected readonly calendarDays = signal<CalendarDay[]>(this.generateCalendarDays());
+
+  constructor() {
+    effect(() => console.log(this.leaves));
+  }
 
   protected currentMonth(): string {
     return this.currentDate().toLocaleString('default', { month: 'long' });
@@ -67,16 +75,32 @@ export class Calendar {
     return days;
   }
 
+  protected isDateWithinLeave(
+    targetDate: Date,
+    startDate: string | Date,
+    endDate: string | Date
+  ): boolean {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    start.setHours(0, 0, 0, 0);
+    end.setHours(23, 59, 59, 999);
+    targetDate.setHours(12, 0, 0, 0);
+
+    const day = targetDate.getDay();
+    const isWeekend = day === 0 || day === 6;
+    if (isWeekend) return false;
+
+    return targetDate >= start && targetDate <= end;
+  }
+
   private getEventsForDate(date: Date): CalendarEvent[] {
     const events: CalendarEvent[] = [];
 
-    if (date.getDate() === 15) {
-      events.push({ name: 'L. James', type: 'pending' }, { name: 'S. Curry', type: 'approved' });
-    }
-
-    if (date.getDate() === 20) {
-      events.push({ name: 'M. Jordan', type: 'rejected' });
-    }
+    this.leaves.forEach((leave) => {
+      if (this.isDateWithinLeave(date, leave.start_date, leave.end_date))
+        events.push({ id: leave.id, name: leave.user_username ?? 'Unknown', type: leave.status });
+    });
 
     return events;
   }
@@ -92,11 +116,6 @@ export class Calendar {
     const newDate = new Date(this.currentDate());
     newDate.setMonth(newDate.getMonth() + 1);
     this.currentDate.set(newDate);
-    this.calendarDays.set(this.generateCalendarDays());
-  }
-
-  protected goToToday(): void {
-    this.currentDate.set(new Date());
     this.calendarDays.set(this.generateCalendarDays());
   }
 
@@ -122,7 +141,7 @@ export class Calendar {
       approved: 'md:bg-green-500/20',
       rejected: 'md:bg-red-500/20',
     };
-    return `flex items-center gap-2 p-1 rounded-lg ${classes[type] || 'bg-gray-200'}`;
+    return `flex items-center gap-2 p-1 rounded-lg ${classes[type.toLowerCase()] || 'bg-gray-200'}`;
   }
 
   getEventDotClass(type: string): string {
@@ -131,6 +150,6 @@ export class Calendar {
       approved: 'bg-green-500',
       rejected: 'bg-red-500',
     };
-    return `${classes[type] || 'bg-gray-500'}`;
+    return `${classes[type.toLowerCase()] || 'bg-gray-500'}`;
   }
 }

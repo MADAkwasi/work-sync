@@ -7,13 +7,32 @@
 
   <section class="flex flex-col gap-8">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 justify-between">
-      @for(card of cards; track $index){
-      <p-card [subheader]="card.title" class="!bg-white">
-        <p class="text-[#222] text-2xl md:text-3xl font-bold">{{ card.content }}</p>
+      @if(isFetching()){
+      <div class="h-28 bg-[#aaa] rounded animate-pulse"></div>
+      <div class="h-28 bg-[#aaa] rounded animate-pulse"></div>
+      <div class="h-28 bg-[#aaa] rounded animate-pulse"></div>
+      <div class="h-28 bg-[#aaa] rounded animate-pulse"></div>
+      }@else{
+      <p-card subheader="Total Leave Balance" class="!bg-white">
+        <p class="text-[#222] text-2xl md:text-3xl font-bold">N/A</p>
       </p-card>
-      }
+      <p-card subheader="Pending Requests" class="!bg-white">
+        <p class="text-[#222] text-2xl md:text-3xl font-bold">
+          {{ pendingRequests() }}
+        </p>
+      </p-card>
+      <p-card subheader="Approved Requests" class="!bg-white">
+        <p class="text-[#222] text-2xl md:text-3xl font-bold">
+          {{ approvedRequests() }}
+        </p>
+      </p-card>
+      <p-card subheader="Used Leave Days" class="!bg-white">
+        <p class="text-[#222] text-2xl md:text-3xl font-bold">
+          {{ usedLeaves() }}
+        </p> </p-card
+      >}
     </div>
 
-    <app-table [data]="leaves" />
+    <app-table [data]="leaves()" [isLoadingData]="isFetching()" />
   </section>
 </main>

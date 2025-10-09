@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { endpoints } from '@shared/constants/endpoints';
 import { Header } from '@shared/components/header/header';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -9,6 +9,10 @@ import { Button } from '@shared/components/button/button';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LeaveDurationPipe } from '@core/pipes/leave-duration/leave-duration';
 import { Router } from '@angular/router';
+import { LeaveService } from '@core/services/leave/leave';
+import { toastNotifications } from '@shared/constants/toast';
+import { ToastService } from '@core/services/toast/toast';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-leave-request',
@@ -25,10 +29,13 @@ import { Router } from '@angular/router';
 })
 export class LeaveRequest {
   private readonly router = inject(Router);
+  private readonly leaveService = inject(LeaveService);
   private readonly fb = inject(FormBuilder);
+  private readonly toast = inject(ToastService);
   private readonly leaveDurationPipe = new LeaveDurationPipe();
   private readonly endpoint = endpoints.pages;
   protected readonly minDate = new Date();
+  protected readonly isSubmitting = signal(false);
   protected readonly requestForm = this.fb.group({
     endDate: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
@@ -61,11 +68,35 @@ export class LeaveRequest {
     this.router.navigate([this.endpoint.employeeDashboard]);
   }
 
-  protected onSubmit(): void {
-    console.log(this.requestForm.value);
+  protected formatDate(date: string): string {
+    const newDate = new Date(date);
+    const formatted = newDate.toISOString().split('T')[0];
+    return formatted;
   }
 
-  protected onCancel(): void {
-    this.requestForm.reset();
+  protected onSubmit(): void {
+    if (this.requestForm.invalid) return;
+
+    const { reason, startDate, endDate } = this.requestForm.value;
+
+    if (!startDate || !endDate) return;
+
+    this.isSubmitting.set(true);
+    const { operations, status } = toastNotifications;
+
+    this.leaveService
+      .createLeaveRequest({
+        reason: reason ?? '',
+        startDate: this.formatDate(startDate),
+        endDate: this.formatDate(endDate),
+      })
+      .pipe(finalize(() => this.isSubmitting.set(false)))
+      .subscribe({
+        next: () => {
+          this.toast.show(operations.createSuccess, status.success);
+          this.requestForm.reset();
+        },
+        error: ({ error }) => this.toast.show(operations.actionFailed, status.error, error.message),
+      });
   }
 }
