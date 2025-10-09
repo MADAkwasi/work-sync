@@ -12,7 +12,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { SelectModule } from 'primeng/select';
 import { AuthService } from '@core/services/auth/auth';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorMessagePipe } from '@core/pipes/error-message/error-message';
 import { UserService } from '@core/services/user/user';
 import { toastNotifications } from '@shared/constants/toast';

@@ -1,25 +1,45 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { LeaveStore } from '@core/store/leave.store';
 import { Header } from '@shared/components/header/header';
 import { Icon } from '@shared/components/icon/icon';
-import { colors, days } from '@shared/constants/calendar';
+import { days } from '@shared/constants/calendar';
 import { CalendarDay, CalendarEvent } from '@shared/models/calendar';
 import { LeaveStatus } from '@shared/models/leave';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.html',
-  imports: [Header, Icon],
+  imports: [Header, Icon, SelectButtonModule, ReactiveFormsModule],
 })
 export class Calendar {
   private readonly store = inject(LeaveStore);
+  private readonly fb = inject(FormBuilder);
   private readonly currentDate = signal<Date>(new Date());
-  protected readonly leaves = this.store.leaves();
+  protected readonly leaves = this.store.leaves;
+  private readonly initialLeaves = signal(this.store.leaves());
   protected readonly weekDays = days;
   protected readonly calendarDays = signal<CalendarDay[]>(this.generateCalendarDays());
+  protected readonly filterOptions = [
+    { label: 'Approved' },
+    { label: 'Pending' },
+    { label: 'Rejected' },
+  ];
+  protected readonly filterForm = this.fb.group({
+    filterBy: [[] as LeaveStatus[]],
+  });
 
-  constructor() {
-    effect(() => console.log(this.leaves));
+  protected applyFilters(): void {
+    const filterBy: LeaveStatus[] = this.filterForm.get('filterBy')?.value || [];
+
+    const filteredLeaves =
+      filterBy.length === 0
+        ? this.initialLeaves()
+        : this.initialLeaves().filter((leave) => filterBy.includes(leave.status));
+
+    this.store.setLeaves(filteredLeaves);
+    this.calendarDays.set(this.generateCalendarDays());
   }
 
   protected currentMonth(): string {
@@ -97,7 +117,7 @@ export class Calendar {
   private getEventsForDate(date: Date): CalendarEvent[] {
     const events: CalendarEvent[] = [];
 
-    this.leaves.forEach((leave) => {
+    this.leaves().forEach((leave) => {
       if (this.isDateWithinLeave(date, leave.start_date, leave.end_date))
         events.push({ id: leave.id, name: leave.user_username ?? 'Unknown', type: leave.status });
     });
