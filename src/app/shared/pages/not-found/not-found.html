@@ -1,0 +1,15 @@
+<main class="w-full h-screen flex flex-col items-center justify-center bg-gray-50 text-center px-4">
+  <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800 mb-4">Page Not Found</h1>
+  <p class="text-gray-600">Sorry, the page you’re looking for doesn’t exist or has been moved.</p>
+
+  <div class="flex items-center justify-center">
+    <img src="/images/not-found.png" alt="404 illustration" class="w-1/2 max-w-md h-auto" />
+  </div>
+
+  <a
+    (click)="navigateBack()"
+    class="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+  >
+    Go Back
+  </a>
+</main>

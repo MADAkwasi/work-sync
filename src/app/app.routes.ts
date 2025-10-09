@@ -37,4 +37,9 @@ export const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('@shared/pages/not-found/not-found').then((Default) => Default.NotFound),
+  },
 ];
