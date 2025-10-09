@@ -43,3 +43,7 @@ __screenshots__/
 Thumbs.db
 
 /src/app/core/environments
+
+# Local Netlify folder
+.netlify
+netlify.toml

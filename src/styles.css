@@ -13,14 +13,22 @@ body {
   color: #222;
 }
 
-/* Example for p-dropdown */
-.p-dropdown .p-dropdown-label {
-  color: green;
-  font-size: 160px;
+.p-togglebutton-checked .p-togglebutton-content {
+  @apply !bg-[#407BFF];
 }
 
-/* Example for p-selectButton */
-.p-selectbutton .p-highlight {
-  background-color: #ffcc00;
-  color: #333;
+.p-select-overlay {
+  @apply !bg-white;
+}
+
+li[role='option'] span {
+  @apply !text-[#333];
+}
+
+li[role='option'] {
+  @apply hover:!bg-gray-300 focus:!bg-gray-700;
+}
+
+.p-select {
+  @apply !border !border-[#333];
 }
