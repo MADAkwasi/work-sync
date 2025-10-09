@@ -91,8 +91,11 @@
         type="submit"
         [fullWidth]="true"
         class="mt-5"
+        [disabled]="registrationForm.invalid || isSubmitting()"
       >
-        Submit
+        @if(isSubmitting()){
+        <app-loader />
+        }@else{ Submit }
       </app-button>
       <p class="text-xs md:text-sm text-center">
         Already have an account?

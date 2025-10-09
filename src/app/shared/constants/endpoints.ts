@@ -8,7 +8,7 @@ export const endpoints = {
   },
   auth: {
     login: 'auth/login',
-    register: 'auth/register',
+    register: 'register',
     logout: 'auth/apiKey/revoke',
   },
   leave: {
