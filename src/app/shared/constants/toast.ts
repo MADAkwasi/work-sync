@@ -16,5 +16,6 @@ export const toastNotifications = {
     createSuccess: 'Leave request created successfully',
     userSuccess: 'User created successfully',
     userFailed: 'Failed to create user',
+    registrationFailed: 'Registration Failed',
   },
 };
