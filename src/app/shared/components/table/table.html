@@ -162,10 +162,11 @@
 
         @if (openLeaveContextId() === $index){
         <div
+          #contextMenu
           class="absolute top-full -left-1/2 text-xs flex-col bg-white w-32 shadow-xl rounded-md z-50 flex lg:hidden"
         >
           <span class="py-4 px-3 border-b border-gray-300"
-            >Duration: {{ leave.start_date | leaveDuration : leave.end_date }} days</span
+            >Duration: {{ leave.start_date | leaveDuration : leave.end_date }}</span
           >
 
           <span class="border-b border-gray-300 text-green-500">

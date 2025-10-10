@@ -1,4 +1,15 @@
-import { Component, computed, inject, input, signal, OnInit, effect } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  signal,
+  OnInit,
+  effect,
+  viewChild,
+  ElementRef,
+  HostListener,
+} from '@angular/core';
 import { Leave } from '@shared/models/leave';
 import { LeaveDurationPipe } from '@core/pipes/leave-duration/leave-duration';
 import { Button } from '../button/button';
@@ -43,6 +54,7 @@ export class Table {
   private readonly leaveService = inject(LeaveService);
   private readonly fb = inject(FormBuilder);
   private readonly toast = inject(ToastService);
+  private readonly contextMenu = viewChild<ElementRef>('contextMenu');
   protected readonly isResponding = signal(false);
   protected readonly pageItems = signal([]);
   protected readonly openLeaveContextId = signal<number | null>(null);
@@ -84,6 +96,19 @@ export class Table {
 
   protected handlePageChange(page: number) {
     this.currentPage.set(page);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const contextMenuEl = this.contextMenu()?.nativeElement;
+
+    if (
+      contextMenuEl &&
+      this.openLeaveContextId() !== null &&
+      !contextMenuEl.contains(event.target as Node)
+    ) {
+      this.openLeaveContextId.set(null);
+    }
   }
 
   protected toggleLeaveContext(leaveIndex: number, event: Event): void {

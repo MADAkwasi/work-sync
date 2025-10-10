@@ -30,7 +30,10 @@
               type="username"
               class="!bg-white !text-[#333] focus:!border-black"
               fluid
-              [invalid]="registrationForm.controls['username'].invalid && registrationForm.touched"
+              [invalid]="
+                registrationForm.controls.username.invalid &&
+                registrationForm.controls.username.touched
+              "
             />
           </p-iconfield>
           <label class="!bg-white !text-[#ccc]">Username</label>
@@ -51,7 +54,10 @@
               inputId="password"
               formControlName="password"
               inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
-              [invalid]="registrationForm.controls['password'].invalid && registrationForm.touched"
+              [invalid]="
+                registrationForm.controls['password'].invalid &&
+                registrationForm.controls.password.touched
+              "
               fluid
             />
           </p-iconfield>
@@ -74,7 +80,8 @@
               formControlName="confirmPassword"
               inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
               [invalid]="
-                registrationForm.controls['confirmPassword'].invalid && registrationForm.touched
+                registrationForm.controls['confirmPassword'].invalid &&
+                registrationForm.controls.confirmPassword.touched
               "
               fluid
             />
