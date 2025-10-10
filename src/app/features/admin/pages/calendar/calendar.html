@@ -35,33 +35,69 @@
       [class]="getDayClasses(day)"
       [class.bg-[#a3bffa]]="!day.isCurrentMonth"
     >
-      <div class="font-bold text-xs md:text-base" [class.text-gray-600]="!day.isCurrentMonth">
-        {{ day.date.getDate() }}
+      <div
+        class="font-bold flex items-center justify-between text-xs md:text-base"
+        [class.text-gray-600]="!day.isCurrentMonth"
+      >
+        <p>{{ day.date.getDate() }}</p>
+
+        @if(day.events && day.events.length > 3){
+        <div class="md:text-xs font-semibold md:flex items-center hidden">
+          +{{ day.events.length }} more
+          <div class="hidden lg:flex items-center gap-1">
+            ( @if(getLeaveStatusCount(day.events, 'Approved')> 0){
+            <div class="flex gap-0.5 items-center">
+              <span>{{ getLeaveStatusCount(day.events, 'Approved') }}</span>
+              <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+            </div>
+            } @if(getLeaveStatusCount(day.events, 'Rejected')>0){
+            <div class="flex gap-0.5 items-center">
+              <span>{{ getLeaveStatusCount(day.events, 'Rejected') }}</span>
+              <div class="w-1.5 h-1.5 rounded-full bg-red-500"></div>
+            </div>
+            } @if(getLeaveStatusCount(day.events, 'Pending') > 0){
+            <div class="flex gap-0.5 items-center">
+              <span>{{ getLeaveStatusCount(day.events, 'Pending') }}</span>
+              <div
+                class="w-1.5 h-1.5 rounded-full border-2 border-dashed border-gray-400 bg-transparent"
+              ></div>
+            </div>
+            } )
+          </div>
+        </div>
+        }
       </div>
 
       @if(day.events && day.events.length > 0) {
-      <div class="md:mt-1 flex flex-wrap md:block">
-        @for(event of day.events; track event.id) {
+      <div class="md:mt-1 hidden md:block">
+        @for(event of day.events.slice(0,3); track event.id) {
         <div
-          class="flex md:my-1 items-center gap-2 p-1 rounded-lg"
+          class="flex md:my-1 items-center gap-1 p-0.5 rounded-lg"
           [class]="getEventClasses(event.type)"
         >
-          <div
-            class="w-2 md:w-4 h-2 md:h-4 rounded-full"
-            [class]="getEventDotClass(event.type)"
-          ></div>
+          <div class="md:w-2.5 md:h-2.5 rounded-full" [class]="getEventDotClass(event.type)"></div>
+          <span class="text-xs font-medium hidden md:block">{{ event.name }}</span>
+        </div>
+        }
+      </div>
+
+      <div class="flex flex-wrap md:hidden">
+        @for(event of day.events; track event.id) {
+        <div class="flex items-center gap-2 p-1 rounded-lg" [class]="getEventClasses(event.type)">
+          <div class="w-2 h-2 rounded-full" [class]="getEventDotClass(event.type)"></div>
           <span class="text-xs font-medium hidden md:block">{{ event.name }}</span>
         </div>
         }
       </div>
       }
     </div>
+
     }
   </div>
 
-  <div class="mt-8">
+  <div class="mt-8 bg-white px-4 py-2 w-fit shadow-lg rounded-lg">
     <h3 class="text-lg font-bold">Legend</h3>
-    <div class="mt-4 grid grid-cols-3 gap-4 text-sm">
+    <div class="mt-4 gap-4 text-sm flex">
       <div class="flex items-center gap-2">
         <div class="w-4 h-4 rounded-full border-2 border-dashed border-gray-400"></div>
         <span>Pending</span>
