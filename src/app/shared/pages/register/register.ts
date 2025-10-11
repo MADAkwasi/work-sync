@@ -15,7 +15,7 @@ import { finalize } from 'rxjs';
 import { endpoints } from '@shared/constants/endpoints';
 import { toastNotifications } from '@shared/constants/toast';
 import { ToastService } from '@core/services/toast/toast';
-import { Loader } from "@shared/components/loader/loader";
+import { Loader } from '@shared/components/loader/loader';
 
 @Component({
   selector: 'app-register',
@@ -30,8 +30,8 @@ import { Loader } from "@shared/components/loader/loader";
     Button,
     Icon,
     RouterLink,
-    Loader
-],
+    Loader,
+  ],
   templateUrl: './register.html',
 })
 export class Register {
@@ -45,7 +45,7 @@ export class Register {
     {
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
     },
     { validators: passwordsMatchValidator }
   );

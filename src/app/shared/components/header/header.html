@@ -73,6 +73,7 @@
             formControlName="username"
             pSize="large"
             class="!bg-white !text-[#333] focus:!border-black"
+            [invalid]="userForm.controls.username.invalid && userForm.controls.username.touched"
             fluid
           />
         </p-iconfield>
@@ -112,6 +113,7 @@
             size="large"
             inputId="password"
             formControlName="password"
+            [invalid]="userForm.controls.password.invalid && userForm.controls.password.touched"
             inputStyleClass="!bg-white !outline-red-500 !text-[#333] focus:!border-black"
             fluid
           />

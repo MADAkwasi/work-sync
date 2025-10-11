@@ -39,7 +39,7 @@ export class LeaveRequest {
   protected readonly requestForm = this.fb.group({
     endDate: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    duration: [{ value: 0, disabled: true }],
+    duration: [{ value: '0', disabled: true }],
     reason: [''],
   });
 
@@ -60,7 +60,7 @@ export class LeaveRequest {
       const duration = this.leaveDurationPipe.transform(startDate, endDate);
       this.requestForm.get('duration')?.setValue(duration, { emitEvent: false });
     } else {
-      this.requestForm.get('duration')?.setValue(0, { emitEvent: false });
+      this.requestForm.get('duration')?.setValue('0', { emitEvent: false });
     }
   }
 

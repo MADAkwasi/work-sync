@@ -14,7 +14,7 @@ body {
 }
 
 .p-togglebutton-checked .p-togglebutton-content {
-  @apply !bg-[#407BFF];
+  @apply !bg-[#407BFF] text-white;
 }
 
 .p-select-overlay {

@@ -125,6 +125,15 @@ export class Calendar {
     return events;
   }
 
+  protected getLeaveStatusCount(
+    dayLeaves: CalendarEvent[],
+    status: 'Approved' | 'Rejected' | 'Pending'
+  ): number {
+    const filteredArray = dayLeaves.filter((leave) => leave.type === status);
+
+    return filteredArray.length;
+  }
+
   protected previousMonth(): void {
     const newDate = new Date(this.currentDate());
     newDate.setMonth(newDate.getMonth() - 1);

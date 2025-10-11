@@ -5,14 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class LeaveDurationPipe implements PipeTransform {
-  transform(startDate: string | Date | null, endDate: string | Date | null): number {
-    if (!startDate || !endDate) return 0;
+  transform(startDate: string | Date | null, endDate: string | Date | null): string {
+    if (!startDate || !endDate) return '0';
 
     const start = this.normalizeDate(startDate);
     const end = this.normalizeDate(endDate);
 
-    if (isNaN(start.getTime()) || isNaN(end.getTime())) return 0;
-    if (end < start) return 0;
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) return '0';
+    if (end < start) return '0';
 
     let workingDays = 0;
     const current = new Date(start);
@@ -25,7 +25,7 @@ export class LeaveDurationPipe implements PipeTransform {
       current.setDate(current.getDate() + 1);
     }
 
-    return workingDays;
+    return workingDays === 1 ? '1 day' : `${workingDays} days`;
   }
 
   private normalizeDate(date: string | Date): Date {

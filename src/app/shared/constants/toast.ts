@@ -17,5 +17,9 @@ export const toastNotifications = {
     userSuccess: 'User created successfully',
     userFailed: 'Failed to create user',
     registrationFailed: 'Registration Failed',
+    accessDenied: 'Login to view resource',
+  },
+  messages: {
+    cantView: 'Login to view resource',
   },
 };
