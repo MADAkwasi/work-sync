@@ -27,7 +27,6 @@ A modern, responsive Leave Management System built with Angular that helps teams
 
 - **Visual Leave Calendar** - Color-coded calendar view showing employee absences
 - **Employee Information** - See who is away and when
-- **Leave Type Indicators** - Different colors for vacation, sick leave, personal time
 - **Status Tracking** - Visual indicators for pending, approved, rejected requests
 - **Date Range Display** - Clear visibility of leave durations
 
@@ -35,7 +34,6 @@ A modern, responsive Leave Management System built with Angular that helps teams
 
 - **Modern Design** - Clean, professional interface
 - **Fully Responsive** - Works seamlessly on desktop, tablet, and mobile
-- **Dark/Light Mode** - Built-in theme support
 - **Intuitive Navigation** - Easy-to-use interface
 
 ## 🚀 Quick Start
@@ -51,20 +49,20 @@ A modern, responsive Leave Management System built with Angular that helps teams
 1. **Clone the repository**
 
    ```bash
-   git clone [repository-url]
-   cd leave-management-system
+   git clone [https://github.com/MADAkwasi/work-sync.git]
+   cd work-sync
    ```
 
 2. **Install dependencies**
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. **Configure environment**
 
    ```bash
-   # Update src/environments/environment.ts with your backend API URL
+   # Update src/app/core/environments/environment.ts with your backend API URL
    export const environment = {
      production: false,
      apiUrl: 'YOUR_BACKEND_API_URL'
@@ -90,7 +88,6 @@ ng build --prod
 1. **Register/Login** to your account
 2. **View your dashboard** to see current leave requests
 3. **Create new requests** for time off
-4. **Check calendar** to see team availability
 
 ### For Managers/Admins
 
@@ -105,8 +102,8 @@ ng build --prod
 - **Styling**: Tailwind CSS
 - **Authentication**: JWT Tokens
 - **State Management**: Angular Signals
-- **Deployment**: Netlify/Vercel
-- **Icons**: Material Symbols
+- **Deployment**: Netlify
+- **Icons & UI Library**: PrimeNg
 
 ## 🔒 Security Features
 
@@ -122,29 +119,42 @@ ng build --prod
 - ✅ **Search & Filter** - Filter calendar by person or leave type
 - ✅ **Responsive Design** - Modern, mobile-friendly UI
 - ✅ **Color-coded Calendar** - Visual indicators for different leave types and statuses
-- ✅ **Dark Mode Support** - Built-in theme switching
 
 ## 📁 Project Structure
 
 ```
 src/
-├── app/
-│   ├── components/     # Reusable UI components
-│   ├── pages/          # Main application pages
-│   ├── services/       # API services and business logic
-│   ├── guards/         # Route protection
-│   ├── interfaces/     # TypeScript interfaces
-│   └── utils/          # Helper functions
-├── assets/            # Static assets
-└── environments/      # Environment configurations
+└── app/
+    ├── core/
+    │   ├── environments/     # Holds environment-specific configurations (e.g., dev, prod)
+    │   ├── guards/           # Route guards that control access to specific pages or features
+    │   ├── interceptors/     # HTTP interceptors for handling requests, responses, or errors globally
+    │   ├── pipes/            # Global pipes used across multiple features
+    │   ├── services/         # Core singleton services for API calls or app-wide logic
+    │   └── store/            # Global state management
+    │
+    ├── features/
+    │   ├── admin/
+    │   │   └── pages/        # Admin-facing pages (e.g., dashboard, calendar view)
+    │   │   └── components/   # Reusable admin-specific UI components (optional)
+    │   │
+    │   └── employee/
+    │       └── pages/        # Employee-facing pages (e.g., dashboard, request page)
+    │       └── components/   # Reusable employee-specific UI components (optional)
+    │
+    └── shared/
+         ├── components/      # Reusable UI components shared across features (e.g., modals, inputs)
+         ├── constants/       # Application-wide constants and enums
+         ├── models/          # TypeScript interfaces and type definitions
+         ├── pages/           # Shared standalone pages (e.g., 404, login)
+         └── validators/      # Custom form validators and validation logic
 ```
 
 ## 🌐 Deployment
 
 The application is deployed on:
 
-- **Frontend**: [Your Hosted URL]
-- **Backend**: [Provided Backend API URL]
+- [https://the-work-sync.netlify.app]
 
 ### Deployment Platforms Supported
 
@@ -152,20 +162,3 @@ The application is deployed on:
 - Vercel
 - Render
 - GitHub Pages
-
-## 📞 Support
-
-For technical support or questions about this project, please contact:
-
-**THE DIGICOAST**  
-📞 +44 78 1833 5634 | +233 54 648 4338  
-📧 info@thedigicoast.com  
-🌐 thedigicoast.com
-
-## 📄 License
-
-This project was developed as part of the Digicoast Graduate Intern Frontend Assessment.
-
----
-
-**Built with ❤️ for Worksync - Solving the case of vanishing colleagues**
